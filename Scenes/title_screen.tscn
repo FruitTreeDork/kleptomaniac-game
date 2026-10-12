@@ -1,3 +1,5 @@
 [gd_scene format=3 uid="uid://btg117njqy6w6"]
 
 [node name="title_screen" type="Node2D" unique_id=2041746518]
+metadata/_edit_horizontal_guides_ = [0.0, 720.0]
+metadata/_edit_vertical_guides_ = [0.0, 1280.0]
