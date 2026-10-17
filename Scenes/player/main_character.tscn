@@ -71,13 +71,12 @@ physics_interpolation_mode = 2
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1717118352]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-<<<<<<< Updated upstream
 [node name="MarkerLeftHand" type="Marker3D" parent="Head/Camera3D" unique_id=974195638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, -0.409, -1)
 
 [node name="MarkerRightHand" type="Marker3D" parent="Head/Camera3D" unique_id=728042775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, -0.4, -1)
-=======
+
 [node name="ui" type="Control" parent="." unique_id=398982810]
 layout_mode = 3
 anchors_preset = 0
@@ -118,4 +117,3 @@ offset_left = 608.0
 offset_right = 760.0
 offset_bottom = 32.0
 text = "phone"
->>>>>>> Stashed changes
