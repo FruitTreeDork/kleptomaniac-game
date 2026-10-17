@@ -9,10 +9,13 @@
 [sub_resource type="BoxMesh" id="BoxMesh_22vlk"]
 size = Vector3(0.28930664, 0.27563477, 1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3p8rt"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_smqvi"]
 points = PackedVector3Array(0.14462501, 0.13781738, 0.5, 0.14462501, -0.13781738, 0.5, 0.14462501, 0.13781738, -0.5, -0.14465332, 0.13781738, 0.5, -0.14465332, -0.13781738, 0.5, 0.14462501, -0.13781738, -0.5, -0.14465332, 0.13781738, -0.5, -0.14465332, -0.13781738, -0.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_smqvi"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_22vlk"]
+radius = 0.2569116
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3p8rt"]
 points = PackedVector3Array(0.14462501, 0.13781738, 0.5, 0.14462501, -0.13781738, 0.5, 0.14462501, 0.13781738, -0.5, -0.14465332, 0.13781738, 0.5, -0.14465332, -0.13781738, 0.5, 0.14462501, -0.13781738, -0.5, -0.14465332, 0.13781738, -0.5, -0.14465332, -0.13781738, -0.5)
 
 [node name="drizzle" type="CharacterBody3D" unique_id=166496182 node_paths=PackedStringArray("left_hand_marker", "right_hand_marker")]
@@ -30,6 +33,22 @@ shape = SubResource("CapsuleShape3D_yih1u")
 [node name="Hands" type="Node3D" parent="." unique_id=1594092662]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2897523, 0)
 
+[node name="LeftHand" type="RigidBody3D" parent="Hands" unique_id=498164151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.542, 0, -0.94)
+collision_layer = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hands/LeftHand" unique_id=713629715]
+mesh = SubResource("BoxMesh_22vlk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand" unique_id=1426795837]
+shape = SubResource("ConvexPolygonShape3D_smqvi")
+
+[node name="HandArea" type="Area3D" parent="Hands/LeftHand" unique_id=1893813874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand/HandArea" unique_id=247175027]
+shape = SubResource("SphereShape3D_22vlk")
+
 [node name="RightHand" type="RigidBody3D" parent="Hands" unique_id=1705424413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, 0, -0.94)
 collision_layer = 4
@@ -40,15 +59,11 @@ mesh = SubResource("BoxMesh_22vlk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand" unique_id=351011174]
 shape = SubResource("ConvexPolygonShape3D_3p8rt")
 
-[node name="LeftHand" type="RigidBody3D" parent="Hands" unique_id=498164151]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.542, 0, -0.94)
-collision_layer = 4
+[node name="HandArea" type="Area3D" parent="Hands/RightHand" unique_id=1518916508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.50515777)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hands/LeftHand" unique_id=713629715]
-mesh = SubResource("BoxMesh_22vlk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand" unique_id=1426795837]
-shape = SubResource("ConvexPolygonShape3D_smqvi")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand/HandArea" unique_id=1261585303]
+shape = SubResource("SphereShape3D_22vlk")
 
 [node name="Head" type="Node3D" parent="." unique_id=642812763]
 physics_interpolation_mode = 2
