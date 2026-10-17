@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
+[ext_resource type="PackedScene" uid="uid://dhn3bassysirn" path="res://3D_Models/bottle.blend" id="2_kpu7f"]
+[ext_resource type="Script" uid="uid://ds544uodtat7f" path="res://3D_Models/bottle.gd" id="3_3n873"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yih1u"]
 
@@ -12,16 +14,19 @@ points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kpu7f"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_smqvi"]
-sky_top_color = Color(0.1307418, 0.16502127, 0.2106831, 1)
-sky_horizon_color = Color(0.29611164, 0.3023788, 0.31492606, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3n873"]
+sky_top_color = Color(0, 0, 0.13333334, 1)
+sky_horizon_color = Color(0.20539668, 0.21019396, 0.21979877, 1)
 
 [sub_resource type="Sky" id="Sky_gv3r5"]
-sky_material = SubResource("ProceduralSkyMaterial_smqvi")
+sky_material = SubResource("ProceduralSkyMaterial_3n873")
 
 [sub_resource type="Environment" id="Environment_yih1u"]
 background_mode = 2
 sky = SubResource("Sky_gv3r5")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3n873"]
+points = PackedVector3Array(-0.6, -1.0002271, 0, -0.55442446, -1.0002271, 0.22952229, -0.6, 1.1996044, 0, -0.55442446, -1.0002271, -0.2296398, -0.540094, -1.1, 0, -0.42427567, -1.0002271, 0.42415822, -0.55442446, 1.1996044, 0.22952229, -0.498982, -1.1, 0.20661706, -0.24009398, 2.799994, 0, -0.55442446, 1.1996044, -0.2296398, -0.42427567, -1.0002271, -0.42427567, -0.498982, -1.1, -0.20673454, -0.38187158, -1.1, 0.3817541, -0.20673454, -1.1, 0.49886453, -0.2296398, -1.0002271, 0.554307, -0.42427567, 1.1996044, 0.42415822, -0.16973376, 2.799994, 0.16961628, -0.22176978, 2.799994, 0.09173846, -0.17079094, 2.969769, 0.07071257, -0.18488649, 2.969769, 0, -0.17079094, 2.969769, -0.07083011, -0.22176978, 2.799994, -0.09185594, -0.16973376, 2.799994, -0.16973376, -0.42427567, 1.1996044, -0.42427567, -0.20673454, -1.1, -0.498982, -0.38187158, -1.1, -0.38187158, -0.2296398, -1.0002271, -0.55442446, 0, -1.1, 0.5399765, 0, -1.0002271, 0.6, -0.2296398, 1.1996044, 0.554307, -0.09185594, 2.799994, 0.22165227, -0.07083011, 2.969769, 0.17067343, -0.13073611, 2.969769, 0.13061863, -0.117697746, 3.0099998, 0.117580235, -0.15375882, 3.0099998, 0.06354737, -0.16632736, 3.0099998, 0, -0.15375882, 3.0099998, -0.06366485, -0.117697746, 3.0099998, -0.117697746, -0.13073611, 2.969769, -0.13073611, -0.07083011, 2.969769, -0.17079094, -0.09185594, 2.799994, -0.22176978, -0.2296398, 1.1996044, -0.55442446, 0, -1.1, -0.540094, 0, -1.0002271, -0.6, 0.20661706, -1.1, 0.49886453, 0.22952229, -1.0002271, 0.554307, 0, 1.1996044, 0.6, 0, 2.799994, 0.23997647, 0, 2.969769, 0.18476897, -0.06366485, 3.0099998, 0.15364134, -0.06366485, 3.0099998, -0.15375882, 0, 2.969769, -0.18488649, 0, 2.799994, -0.24009398, 0, 1.1996044, -0.6, 0.20661706, -1.1, -0.498982, 0.22952229, -1.0002271, -0.55442446, 0.3817541, -1.1, 0.3817541, 0.42415822, -1.0002271, 0.42415822, 0.22952229, 1.1996044, 0.554307, 0.09173846, 2.799994, 0.22165227, 0.07071257, 2.969769, 0.17067343, 0.06354737, 3.0099998, 0.15364134, 0, 3.0099998, 0.16620988, 0, 3.0099998, -0.16632736, 0.06354737, 3.0099998, -0.15375882, 0.07071257, 2.969769, -0.17079094, 0.22952229, 1.1996044, -0.55442446, 0.09173846, 2.799994, -0.22176978, 0.3817541, -1.1, -0.38187158, 0.42415822, -1.0002271, -0.42427567, 0.49886453, -1.1, 0.20661706, 0.554307, -1.0002271, 0.22952229, 0.42415822, 1.1996044, 0.42415822, 0.16961628, 2.799994, 0.16961628, 0.13061863, 2.969769, 0.13061863, 0.117580235, 3.0099998, 0.117580235, 0.117580235, 3.0099998, -0.117697746, 0.13061863, 2.969769, -0.13073611, 0.16961628, 2.799994, -0.16973376, 0.42415822, 1.1996044, -0.42427567, 0.49886453, -1.1, -0.20673454, 0.554307, -1.0002271, -0.2296398, 0.5399765, -1.1, 0, 0.6, -1.0002271, 0, 0.554307, 1.1996044, 0.22952229, 0.22165227, 2.799994, 0.09173846, 0.17067343, 2.969769, 0.07071257, 0.15364134, 3.0099998, 0.06354737, 0.15364134, 3.0099998, -0.06366485, 0.17067343, 2.969769, -0.07083011, 0.22165227, 2.799994, -0.09185594, 0.554307, 1.1996044, -0.2296398, 0.6, 1.1996044, 0, 0.23997647, 2.799994, 0, 0.18476897, 2.969769, 0, 0.16620988, 3.0099998, 0)
 
 [node name="test_area" type="Node3D" unique_id=190970809]
 
@@ -56,4 +61,29 @@ shape = SubResource("ConvexPolygonShape3D_kpu7f")
 environment = SubResource("Environment_yih1u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=801795581]
-transform = Transform3D(1, 0, 0, 0, -5.9604645e-07, -1, 0, 1, -5.9604645e-07, 0, 4.889866, 0)
+transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
+light_color = Color(0, 0, 0, 1)
+shadow_enabled = true
+
+[node name="bottle" parent="." unique_id=109709981 instance=ExtResource("2_kpu7f")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.69493914, 0.5506966, -4.1694684)
+script = ExtResource("3_3n873")
+weight_in_lbs = 1.0
+throwable = true
+stackable = true
+on_ground = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="bottle" unique_id=927747412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0875778, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle/StaticBody3D" unique_id=1454117298]
+shape = SubResource("ConvexPolygonShape3D_3n873")
+
+[node name="Area3D" type="Area3D" parent="bottle" unique_id=1403980774]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle/Area3D" unique_id=1763147101]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.08, 0)
+shape = SubResource("ConvexPolygonShape3D_3n873")
+
+[connection signal="body_entered" from="bottle/Area3D" to="bottle" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="bottle/Area3D" to="bottle" method="_on_area_3d_body_exited"]

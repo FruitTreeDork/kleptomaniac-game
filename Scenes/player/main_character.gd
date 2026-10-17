@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+class_name player
 
 @export var left_hand_marker: Node3D
 @export var right_hand_marker: Node3D
@@ -8,6 +9,8 @@ const HAND_STRENGTH: float = 25.0
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
+
+var in_settings : bool = false
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -22,7 +25,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
@@ -30,8 +33,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			in_settings = true
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			in_settings = false
 
 
 func _physics_process(delta: float) -> void:
@@ -39,21 +44,21 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if !in_settings:
+		# Handle jump.
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		# Using Left Hand
+		if Input.is_action_pressed("left_click"):
+			left_hand.visible = true
+		else:
+			left_hand.visible = false
 	
-	# Using Left Hand
-	if Input.is_action_pressed("left_click"):
-		left_hand.visible = true
-	else:
-		left_hand.visible = false
-	
-	# Using Right Hand
-	if Input.is_action_pressed("right_click"):
-		right_hand.visible = true
-	else:
-		right_hand.visible = false
+		# Using Right Hand
+		if Input.is_action_pressed("right_click"):
+			right_hand.visible = true
+		else:
+			right_hand.visible = false
 	
 	HandleHandMovement(left_hand, left_hand_marker)
 	HandleHandMovement(right_hand, right_hand_marker)
@@ -68,8 +73,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	move_and_slide()
+	
+	if !in_settings:
+		move_and_slide()
 
 
 func HandleHandMovement(hand: RigidBody3D, marker: Marker3D):
