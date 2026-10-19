@@ -2,6 +2,10 @@ extends CharacterBody3D
 
 class_name player
 
+### UI ###
+@onready var bg_pan: Panel = $ui/bg_pan
+
+
 @export var left_hand_marker: Node3D
 @export var right_hand_marker: Node3D
 
@@ -11,6 +15,8 @@ const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
 
 var in_settings : bool = false
+var left_hand_extend : bool = false
+var right_hand_extend : bool = false
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -22,6 +28,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	left_hand.visible = false
 	right_hand.visible = false
+	bg_pan.visible = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -34,9 +41,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			in_settings = true
+			bg_pan.visible = true
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			in_settings = false
+			bg_pan.visible = false
 
 
 func _physics_process(delta: float) -> void:
@@ -51,14 +60,18 @@ func _physics_process(delta: float) -> void:
 		# Using Left Hand
 		if Input.is_action_pressed("left_click"):
 			left_hand.visible = true
+			left_hand_extend = true
 		else:
 			left_hand.visible = false
+			left_hand_extend = false
 	
 		# Using Right Hand
 		if Input.is_action_pressed("right_click"):
 			right_hand.visible = true
+			right_hand_extend = true
 		else:
 			right_hand.visible = false
+			right_hand_extend = false
 	
 	HandleHandMovement(left_hand, left_hand_marker)
 	HandleHandMovement(right_hand, right_hand_marker)

@@ -2,6 +2,7 @@ extends object
 
 class_name bottle
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -12,10 +13,15 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	print("Pick me up")
-	
 
 
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("Hello!: ", area.name)
+	if the_player.name == "drizzle" and the_player.left_hand_extend and area.name == "LeftHandArea":
+		print("In Left Hand")
+	if the_player.name == "drizzle" and the_player.right_hand_extend and area.name == "RightHandArea":
+		print("In Right Hand")
+
+
+func _on_area_3d_area_exited(area: Area3D) -> void:
+	print("Bye Bye!: ", area)

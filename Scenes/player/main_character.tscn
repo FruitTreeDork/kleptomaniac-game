@@ -43,10 +43,10 @@ mesh = SubResource("BoxMesh_22vlk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand" unique_id=1426795837]
 shape = SubResource("ConvexPolygonShape3D_smqvi")
 
-[node name="HandArea" type="Area3D" parent="Hands/LeftHand" unique_id=1893813874]
+[node name="LeftHandArea" type="Area3D" parent="Hands/LeftHand" unique_id=1893813874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand/HandArea" unique_id=247175027]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand/LeftHandArea" unique_id=247175027]
 shape = SubResource("SphereShape3D_22vlk")
 
 [node name="RightHand" type="RigidBody3D" parent="Hands" unique_id=1705424413]
@@ -59,10 +59,10 @@ mesh = SubResource("BoxMesh_22vlk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand" unique_id=351011174]
 shape = SubResource("ConvexPolygonShape3D_3p8rt")
 
-[node name="HandArea" type="Area3D" parent="Hands/RightHand" unique_id=1518916508]
+[node name="RightHandArea" type="Area3D" parent="Hands/RightHand" unique_id=1518916508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.50515777)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand/HandArea" unique_id=1261585303]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand/RightHandArea" unique_id=1261585303]
 shape = SubResource("SphereShape3D_22vlk")
 
 [node name="Head" type="Node3D" parent="." unique_id=642812763]
@@ -83,6 +83,11 @@ anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 1
+
+[node name="bg_pan" type="Panel" parent="ui" unique_id=2037931075]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="Button" type="Button" parent="ui" unique_id=458827192]
 layout_mode = 0

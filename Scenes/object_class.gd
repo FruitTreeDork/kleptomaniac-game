@@ -9,6 +9,7 @@ class_name object
 @export var stackable : bool
 @export var on_ground : bool
 @export var description : String
+@export var the_player : player
 
 
 # Called when the node enters the scene tree for the first time.
