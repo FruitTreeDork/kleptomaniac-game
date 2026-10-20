@@ -18,6 +18,9 @@ var in_settings : bool = false
 var left_hand_extend : bool = false
 var right_hand_extend : bool = false
 
+var left_hand_item : object
+var right_hand_item : object
+
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
@@ -52,6 +55,10 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	if left_hand_item:
+		pass
+		
 
 	if !in_settings:
 		# Handle jump.
