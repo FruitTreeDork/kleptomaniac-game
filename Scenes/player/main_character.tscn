@@ -18,7 +18,7 @@ radius = 0.2569116
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3p8rt"]
 points = PackedVector3Array(0.14462501, 0.13781738, 0.5, 0.14462501, -0.13781738, 0.5, 0.14462501, 0.13781738, -0.5, -0.14465332, 0.13781738, 0.5, -0.14465332, -0.13781738, 0.5, 0.14462501, -0.13781738, -0.5, -0.14465332, 0.13781738, -0.5, -0.14465332, -0.13781738, -0.5)
 
-[node name="drizzle" type="CharacterBody3D" unique_id=166496182 node_paths=PackedStringArray("left_hand_marker", "right_hand_marker")]
+[node name="drizzle" type="CharacterBody3D" unique_id=166496182 node_paths=PackedStringArray("left_hand_marker", "right_hand_marker") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_smqvi")
 left_hand_marker = NodePath("Head/Camera3D/MarkerLeftHand")

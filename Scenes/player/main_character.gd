@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 class_name player
 
+
+
 ### UI ###
 @onready var bg_pan: Panel = $ui/bg_pan
 
@@ -56,9 +58,10 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	if left_hand_item:
+	
+	if right_hand_item:
 		pass
-		
+	
 
 	if !in_settings:
 		# Handle jump.
@@ -68,7 +71,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("left_click"):
 			left_hand.visible = true
 			left_hand_extend = true
-		else:
+		elif !left_hand_item:
 			left_hand.visible = false
 			left_hand_extend = false
 	
@@ -76,9 +79,14 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("right_click"):
 			right_hand.visible = true
 			right_hand_extend = true
-		else:
+		elif !right_hand_item:
 			right_hand.visible = false
 			right_hand_extend = false
+		
+		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
+			left_hand_item = null
+		if right_hand_item and Input.is_action_just_pressed("drop_item_right"):
+			right_hand_item = null
 	
 	HandleHandMovement(left_hand, left_hand_marker)
 	HandleHandMovement(right_hand, right_hand_marker)

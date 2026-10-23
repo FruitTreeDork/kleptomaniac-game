@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
-[ext_resource type="PackedScene" uid="uid://dhn3bassysirn" path="res://3D_Models/bottle.blend" id="2_kpu7f"]
-[ext_resource type="Script" uid="uid://ds544uodtat7f" path="res://3D_Models/bottle.gd" id="3_3n873"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yih1u"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gv3r5"]
-points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_3n873"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yih1u"]
 
@@ -25,9 +22,6 @@ sky_material = SubResource("ProceduralSkyMaterial_3n873")
 background_mode = 2
 sky = SubResource("Sky_gv3r5")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3n873"]
-points = PackedVector3Array(-0.6, -1.0002271, 0, -0.55442446, -1.0002271, 0.22952229, -0.6, 1.1996044, 0, -0.55442446, -1.0002271, -0.2296398, -0.540094, -1.1, 0, -0.42427567, -1.0002271, 0.42415822, -0.55442446, 1.1996044, 0.22952229, -0.498982, -1.1, 0.20661706, -0.24009398, 2.799994, 0, -0.55442446, 1.1996044, -0.2296398, -0.42427567, -1.0002271, -0.42427567, -0.498982, -1.1, -0.20673454, -0.38187158, -1.1, 0.3817541, -0.20673454, -1.1, 0.49886453, -0.2296398, -1.0002271, 0.554307, -0.42427567, 1.1996044, 0.42415822, -0.16973376, 2.799994, 0.16961628, -0.22176978, 2.799994, 0.09173846, -0.17079094, 2.969769, 0.07071257, -0.18488649, 2.969769, 0, -0.17079094, 2.969769, -0.07083011, -0.22176978, 2.799994, -0.09185594, -0.16973376, 2.799994, -0.16973376, -0.42427567, 1.1996044, -0.42427567, -0.20673454, -1.1, -0.498982, -0.38187158, -1.1, -0.38187158, -0.2296398, -1.0002271, -0.55442446, 0, -1.1, 0.5399765, 0, -1.0002271, 0.6, -0.2296398, 1.1996044, 0.554307, -0.09185594, 2.799994, 0.22165227, -0.07083011, 2.969769, 0.17067343, -0.13073611, 2.969769, 0.13061863, -0.117697746, 3.0099998, 0.117580235, -0.15375882, 3.0099998, 0.06354737, -0.16632736, 3.0099998, 0, -0.15375882, 3.0099998, -0.06366485, -0.117697746, 3.0099998, -0.117697746, -0.13073611, 2.969769, -0.13073611, -0.07083011, 2.969769, -0.17079094, -0.09185594, 2.799994, -0.22176978, -0.2296398, 1.1996044, -0.55442446, 0, -1.1, -0.540094, 0, -1.0002271, -0.6, 0.20661706, -1.1, 0.49886453, 0.22952229, -1.0002271, 0.554307, 0, 1.1996044, 0.6, 0, 2.799994, 0.23997647, 0, 2.969769, 0.18476897, -0.06366485, 3.0099998, 0.15364134, -0.06366485, 3.0099998, -0.15375882, 0, 2.969769, -0.18488649, 0, 2.799994, -0.24009398, 0, 1.1996044, -0.6, 0.20661706, -1.1, -0.498982, 0.22952229, -1.0002271, -0.55442446, 0.3817541, -1.1, 0.3817541, 0.42415822, -1.0002271, 0.42415822, 0.22952229, 1.1996044, 0.554307, 0.09173846, 2.799994, 0.22165227, 0.07071257, 2.969769, 0.17067343, 0.06354737, 3.0099998, 0.15364134, 0, 3.0099998, 0.16620988, 0, 3.0099998, -0.16632736, 0.06354737, 3.0099998, -0.15375882, 0.07071257, 2.969769, -0.17079094, 0.22952229, 1.1996044, -0.55442446, 0.09173846, 2.799994, -0.22176978, 0.3817541, -1.1, -0.38187158, 0.42415822, -1.0002271, -0.42427567, 0.49886453, -1.1, 0.20661706, 0.554307, -1.0002271, 0.22952229, 0.42415822, 1.1996044, 0.42415822, 0.16961628, 2.799994, 0.16961628, 0.13061863, 2.969769, 0.13061863, 0.117580235, 3.0099998, 0.117580235, 0.117580235, 3.0099998, -0.117697746, 0.13061863, 2.969769, -0.13073611, 0.16961628, 2.799994, -0.16973376, 0.42415822, 1.1996044, -0.42427567, 0.49886453, -1.1, -0.20673454, 0.554307, -1.0002271, -0.2296398, 0.5399765, -1.1, 0, 0.6, -1.0002271, 0, 0.554307, 1.1996044, 0.22952229, 0.22165227, 2.799994, 0.09173846, 0.17067343, 2.969769, 0.07071257, 0.15364134, 3.0099998, 0.06354737, 0.15364134, 3.0099998, -0.06366485, 0.17067343, 2.969769, -0.07083011, 0.22165227, 2.799994, -0.09185594, 0.554307, 1.1996044, -0.2296398, 0.6, 1.1996044, 0, 0.23997647, 2.799994, 0, 0.18476897, 2.969769, 0, 0.16620988, 3.0099998, 0)
-
 [node name="test_area" type="Node3D" unique_id=190970809]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1847346162]
@@ -35,9 +29,10 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_yih1u")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=469391767]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=615090982]
-shape = SubResource("ConvexPolygonShape3D_gv3r5")
+shape = SubResource("WorldBoundaryShape3D_3n873")
 
 [node name="drizzle" parent="." unique_id=166496182 instance=ExtResource("1_gv3r5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -64,27 +59,3 @@ environment = SubResource("Environment_yih1u")
 transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
-
-[node name="bottle" parent="." unique_id=109709981 node_paths=PackedStringArray("the_player") instance=ExtResource("2_kpu7f")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.69493914, 0.5506966, -4.1694684)
-script = ExtResource("3_3n873")
-weight_in_lbs = 1.0
-throwable = true
-stackable = true
-on_ground = true
-the_player = NodePath("../drizzle")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="bottle" unique_id=927747412]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0875778, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle/StaticBody3D" unique_id=1454117298]
-shape = SubResource("ConvexPolygonShape3D_3n873")
-
-[node name="Area3D" type="Area3D" parent="bottle" unique_id=1403980774]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle/Area3D" unique_id=1763147101]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.08, 0)
-shape = SubResource("ConvexPolygonShape3D_3n873")
-
-[connection signal="area_entered" from="bottle/Area3D" to="bottle" method="_on_area_3d_area_entered"]
-[connection signal="area_exited" from="bottle/Area3D" to="bottle" method="_on_area_3d_area_exited"]
