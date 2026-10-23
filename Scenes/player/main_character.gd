@@ -16,6 +16,8 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
 
+const ARM_BACK : float = 200
+
 var in_settings : bool = false
 var left_hand_extend : bool = false
 var right_hand_extend : bool = false
@@ -28,6 +30,12 @@ var right_hand_item : object
 
 @onready var left_hand: Node3D = $Hands/LeftHand
 @onready var right_hand: Node3D = $Hands/RightHand
+
+@onready var left_hand_area: Area3D = $Hands/LeftHand/LeftHandArea
+@onready var right_hand_area: Area3D = $Hands/RightHand/RightHandArea
+
+@onready var left_hand_coll: CollisionShape3D = $Hands/LeftHand/CollisionShape3D
+@onready var right_hand_coll: CollisionShape3D = $Hands/RightHand/CollisionShape3D
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -47,10 +55,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			in_settings = true
 			bg_pan.visible = true
+			
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			in_settings = false
 			bg_pan.visible = false
+			
+			
 
 
 func _physics_process(delta: float) -> void:
@@ -70,17 +81,21 @@ func _physics_process(delta: float) -> void:
 		# Using Left Hand
 		if Input.is_action_pressed("left_click"):
 			left_hand.visible = true
+			left_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
 			left_hand_extend = true
 		elif !left_hand_item:
 			left_hand.visible = false
+			left_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
 			left_hand_extend = false
 	
 		# Using Right Hand
 		if Input.is_action_pressed("right_click"):
 			right_hand.visible = true
+			right_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
 			right_hand_extend = true
 		elif !right_hand_item:
 			right_hand.visible = false
+			right_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
 			right_hand_extend = false
 		
 		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
@@ -113,3 +128,21 @@ func HandleHandMovement(hand: RigidBody3D, marker: Marker3D):
 
 	var follow_rot = (marker.global_basis * hand.global_basis.inverse()).get_rotation_quaternion()
 	hand.angular_velocity = follow_rot.get_axis() * follow_rot.get_angle() * HAND_STRENGTH
+
+
+func _on_right_hand_area_body_entered(body: Node3D) -> void:
+	#print("Hello from the right hand: ", body)
+	if body.is_in_group("objects") and body is object_area:
+		var to_parent = body.my_object
+		print("Hello from the right hand: ", body)
+		#while get_parent() != null:
+		right_hand_item = to_parent
+#		right_hand_item.owner = right_hand
+		print(to_parent.name)
+		print("PARENT: ", right_hand_item)
+		
+
+
+func _on_left_hand_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("objects"):
+		print("Hello from the left hand: ", body)

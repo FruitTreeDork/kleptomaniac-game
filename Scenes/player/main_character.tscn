@@ -122,3 +122,6 @@ offset_left = 608.0
 offset_right = 760.0
 offset_bottom = 32.0
 text = "phone"
+
+[connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
+[connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
