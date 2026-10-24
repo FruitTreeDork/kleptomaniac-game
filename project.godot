@@ -32,7 +32,8 @@ folder_colors={
 "res://Art/": "red",
 "res://Audio/": "teal",
 "res://Scenes/": "pink",
-"res://Themes_and_fonts/": "blue"
+"res://Themes_and_fonts/": "blue",
+"res://UI_Assets/": "blue"
 }
 
 [global_group]

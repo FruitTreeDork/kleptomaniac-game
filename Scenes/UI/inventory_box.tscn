@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://drhb06x717bmo"]
+
+[ext_resource type="Script" uid="uid://beg1npqi2qel0" path="res://Scenes/UI/bevel.gd" id="1_p0me4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0o8y"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="InventoryBox" type="Control" unique_id=1223803625]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Background" type="Panel" parent="." unique_id=782748184]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0o8y")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=775341672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bevel" type="Control" parent="." unique_id=1416138631]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p0me4")
+is_inverted = null
+metadata/_custom_type_script = "uid://beg1npqi2qel0"

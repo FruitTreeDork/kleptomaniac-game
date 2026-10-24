@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
+[ext_resource type="PackedScene" uid="uid://dqw2hb8v7506o" path="res://Scenes/UI/in_game_ui.tscn" id="2_kpu7f"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yih1u"]
 
@@ -59,3 +60,5 @@ environment = SubResource("Environment_yih1u")
 transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
+
+[node name="InGameUi" parent="." unique_id=1488047598 instance=ExtResource("2_kpu7f")]
