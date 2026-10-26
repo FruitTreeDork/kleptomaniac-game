@@ -145,4 +145,16 @@ func _on_right_hand_area_body_entered(body: Node3D) -> void:
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects"):
+		var to_parent = body.my_object
 		print("Hello from the left hand: ", body)
+		#while get_parent() != null:
+		left_hand_item = to_parent
+		print(to_parent.name)
+		print("PARENT: ", right_hand_item)
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

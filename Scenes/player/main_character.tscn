@@ -18,6 +18,12 @@ radius = 0.2569116
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3p8rt"]
 points = PackedVector3Array(0.14462501, 0.13781738, 0.5, 0.14462501, -0.13781738, 0.5, 0.14462501, 0.13781738, -0.5, -0.14465332, 0.13781738, 0.5, -0.14465332, -0.13781738, 0.5, 0.14462501, -0.13781738, -0.5, -0.14465332, 0.13781738, -0.5, -0.14465332, -0.13781738, -0.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yih1u"]
+bg_color = Color(0, 0, 0.42745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smqvi"]
+bg_color = Color(0, 0.38039216, 1, 1)
+
 [node name="drizzle" type="CharacterBody3D" unique_id=166496182 node_paths=PackedStringArray("left_hand_marker", "right_hand_marker") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_smqvi")
@@ -89,10 +95,71 @@ layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 
+[node name="boarder_pan_1" type="Panel" parent="ui" unique_id=1731111670]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yih1u")
+
+[node name="boarder_pan_2" type="Panel" parent="ui" unique_id=1604203493]
+layout_mode = 0
+offset_left = 1240.0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yih1u")
+
+[node name="boarder_pan_3" type="Panel" parent="ui" unique_id=126651305]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 1240.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yih1u")
+
+[node name="boarder_pan_4" type="Panel" parent="ui" unique_id=1792347973]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 680.0
+offset_right = 1240.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yih1u")
+
+[node name="boarder_pan_5" type="Panel" parent="ui" unique_id=414048369]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 584.0
+offset_right = 136.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_smqvi")
+
+[node name="boarder_pan_6" type="Panel" parent="ui" unique_id=481940604]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 616.0
+offset_right = 232.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_smqvi")
+
+[node name="boarder_pan_7" type="Panel" parent="ui" unique_id=444822605]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 616.0
+offset_right = 328.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_smqvi")
+
+[node name="boarder_pan_8" type="Panel" parent="ui" unique_id=511365097]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 616.0
+offset_right = 424.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_smqvi")
+
 [node name="Button" type="Button" parent="ui" unique_id=458827192]
 layout_mode = 0
 offset_right = 152.0
 offset_bottom = 32.0
+focus_mode = 0
 text = "Player"
 
 [node name="Button2" type="Button" parent="ui" unique_id=2033883199]
@@ -100,13 +167,15 @@ layout_mode = 0
 offset_left = 152.0
 offset_right = 304.0
 offset_bottom = 32.0
-text = "augments/perks"
+focus_mode = 0
+text = "Item catalog"
 
 [node name="Button3" type="Button" parent="ui" unique_id=682059168]
 layout_mode = 0
 offset_left = 304.0
 offset_right = 456.0
 offset_bottom = 32.0
+focus_mode = 0
 text = "tasks"
 
 [node name="Button4" type="Button" parent="ui" unique_id=605856207]
@@ -114,6 +183,7 @@ layout_mode = 0
 offset_left = 456.0
 offset_right = 608.0
 offset_bottom = 32.0
+focus_mode = 0
 text = "money"
 
 [node name="Button5" type="Button" parent="ui" unique_id=1610001945]
@@ -121,7 +191,26 @@ layout_mode = 0
 offset_left = 608.0
 offset_right = 760.0
 offset_bottom = 32.0
+focus_mode = 0
 text = "phone"
+
+[node name="Button6" type="Button" parent="ui" unique_id=4318749]
+layout_mode = 0
+offset_left = 760.0
+offset_right = 912.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "settings"
+
+[node name="CheckBox" type="CheckBox" parent="ui" unique_id=1562173701]
+layout_mode = 0
+offset_left = 968.0
+offset_top = 8.0
+offset_right = 992.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "fullscreen"
 
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
+[connection signal="toggled" from="ui/CheckBox" to="." method="_on_check_box_toggled"]
