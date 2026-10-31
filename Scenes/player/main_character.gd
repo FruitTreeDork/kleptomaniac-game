@@ -153,8 +153,20 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 		print("PARENT: ", right_hand_item)
 
 
-func _on_check_box_toggled(toggled_on: bool) -> void:
-	if toggled_on:
+var fullscreen_toggle = false
+
+func _on_button_8_pressed() -> void:
+	if fullscreen_toggle:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		fullscreen_toggle = false
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		fullscreen_toggle = true
+
+
+func _on_button_9_pressed() -> void:
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
+
+
+func _on_button_7_pressed() -> void:
+	get_tree().quit()

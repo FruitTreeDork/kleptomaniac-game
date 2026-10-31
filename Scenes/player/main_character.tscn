@@ -202,15 +202,44 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "settings"
 
-[node name="CheckBox" type="CheckBox" parent="ui" unique_id=1562173701]
+[node name="Button7" type="Button" parent="ui" unique_id=25025436]
 layout_mode = 0
-offset_left = 968.0
-offset_top = 8.0
-offset_right = 992.0
+offset_left = 1216.0
+offset_right = 1280.0
 offset_bottom = 32.0
 focus_mode = 0
-text = "fullscreen"
+text = "X"
+
+[node name="Button8" type="Button" parent="ui" unique_id=589944137]
+layout_mode = 0
+offset_left = 1152.0
+offset_right = 1216.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "|_|"
+
+[node name="Button9" type="Button" parent="ui" unique_id=64715801]
+layout_mode = 0
+offset_left = 1088.0
+offset_right = 1152.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "-"
+
+[node name="Label" type="Label" parent="ui" unique_id=1502845543]
+layout_mode = 0
+offset_left = 816.0
+offset_top = 600.0
+offset_right = 1259.0
+offset_bottom = 701.0
+text = "Health could be a few things but think it should go here:
+Could be: Hearts icons (like the card game) 
+Could be: little 3d animation of a heart with numbers
+Could be: Whatever else lowk, whatever yall think is good"
 
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
-[connection signal="toggled" from="ui/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="ui/Button7" to="." method="_on_button_7_pressed"]
+[connection signal="pressed" from="ui/Button8" to="." method="_on_button_8_pressed"]
+[connection signal="toggled" from="ui/Button8" to="." method="_on_button_8_toggled"]
+[connection signal="pressed" from="ui/Button9" to="." method="_on_button_9_pressed"]
