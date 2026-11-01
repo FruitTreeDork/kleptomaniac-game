@@ -37,8 +37,8 @@ var right_hand_item : object
 @onready var left_hand_coll: CollisionShape3D = $Hands/LeftHand/CollisionShape3D
 @onready var right_hand_coll: CollisionShape3D = $Hands/RightHand/CollisionShape3D
 
-@onready var right_hand_obj: object = $Hands/RightHand/right_hand_obj
-@onready var left_hand_obj: object = $Hands/LeftHand/left_hand_obj
+@onready var right_hand_obj: Node3D = $Hands/RightHand/right_hand_obj
+@onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
 
 
 func _ready() -> void:
@@ -82,6 +82,16 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+		
+		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
+			left_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+			left_hand_obj.get_child(0).reparent(self.get_parent())
+			left_hand_item = null
+		if right_hand_item and Input.is_action_just_pressed("drop_item_right"):
+			right_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+			right_hand_obj.get_child(0).reparent(self.get_parent())
+			right_hand_item = null
+		
 		# Using Left Hand
 		if Input.is_action_pressed("left_click"):
 			left_hand.visible = true
@@ -89,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		elif !left_hand_item:
 			left_hand.visible = false
 			left_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
-	
+		
 		# Using Right Hand
 		if Input.is_action_pressed("right_click"):
 			right_hand.visible = true
@@ -97,14 +107,6 @@ func _physics_process(delta: float) -> void:
 		elif !right_hand_item:
 			right_hand.visible = false
 			right_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
-		
-		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
-			left_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_ALWAYS
-			print(self.get_parent())
-			left_hand_obj.get_child(0).reparent(self.get_parent())
-			left_hand_item = null
-		if right_hand_item and Input.is_action_just_pressed("drop_item_right"):
-			right_hand_item = null
 	
 	HandleHandMovement(left_hand, left_hand_marker)
 	HandleHandMovement(right_hand, right_hand_marker)
