@@ -37,6 +37,10 @@ var right_hand_item : object
 @onready var left_hand_coll: CollisionShape3D = $Hands/LeftHand/CollisionShape3D
 @onready var right_hand_coll: CollisionShape3D = $Hands/RightHand/CollisionShape3D
 
+@onready var right_hand_obj: object = $Hands/RightHand/right_hand_obj
+@onready var left_hand_obj: object = $Hands/LeftHand/left_hand_obj
+
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	left_hand.visible = false
@@ -82,23 +86,22 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("left_click"):
 			left_hand.visible = true
 			left_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
-			left_hand_extend = true
 		elif !left_hand_item:
 			left_hand.visible = false
 			left_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
-			left_hand_extend = false
 	
 		# Using Right Hand
 		if Input.is_action_pressed("right_click"):
 			right_hand.visible = true
 			right_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
-			right_hand_extend = true
 		elif !right_hand_item:
 			right_hand.visible = false
 			right_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
-			right_hand_extend = false
 		
 		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
+			left_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_ALWAYS
+			print(self.get_parent())
+			left_hand_obj.get_child(0).reparent(self.get_parent())
 			left_hand_item = null
 		if right_hand_item and Input.is_action_just_pressed("drop_item_right"):
 			right_hand_item = null
@@ -130,27 +133,48 @@ func HandleHandMovement(hand: RigidBody3D, marker: Marker3D):
 	hand.angular_velocity = follow_rot.get_axis() * follow_rot.get_angle() * HAND_STRENGTH
 
 
+
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
 	#print("Hello from the right hand: ", body)
 	if body.is_in_group("objects") and body is object_area:
-		var to_parent = body.my_object
-		print("Hello from the right hand: ", body)
+		var to_parent : object = body.my_object
+		#print("Hello from the right hand: ", body)
 		#while get_parent() != null:
+		to_parent.reparent(right_hand_obj)
+		
+		to_parent.position = Vector3.ZERO + to_parent.obj_data.hand_offset
+		to_parent.rotation = Vector3.ZERO
+		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
+		
+		to_parent.obj_data.in_hand = true
+		to_parent.obj_data.on_ground = false
 		right_hand_item = to_parent
-#		right_hand_item.owner = right_hand
-		print(to_parent.name)
-		print("PARENT: ", right_hand_item)
+		
+		print(right_hand_item)
+		#right_hand_item.owner = right_hand
+		#print(to_parent.name)
+		#print("PARENT: ", right_hand_item)
 		
 
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("objects"):
-		var to_parent = body.my_object
-		print("Hello from the left hand: ", body)
+	if body.is_in_group("objects") and body is object_area:
+		var to_parent : object = body.my_object
+		#print("Hello from the right hand: ", body)
 		#while get_parent() != null:
+		to_parent.reparent(left_hand_obj)
+		to_parent.position = Vector3.ZERO + Vector3(-to_parent.obj_data.hand_offset.x, to_parent.obj_data.hand_offset.y, to_parent.obj_data.hand_offset.z)
+		to_parent.rotation = Vector3.ZERO
+		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
+		
+		to_parent.obj_data.in_hand = true
+		to_parent.obj_data.on_ground = false
 		left_hand_item = to_parent
-		print(to_parent.name)
-		print("PARENT: ", right_hand_item)
+		
+		print(left_hand_item)
+		#right_hand_item.owner = right_hand
+		#print(to_parent.name)
+		#print("PARENT: ", right_hand_item)
 
 
 var fullscreen_toggle = false

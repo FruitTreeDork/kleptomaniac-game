@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://df4motomewiwy"]
+[gd_scene format=4 uid="uid://8foyldyj3lgb"]
 
 [ext_resource type="Script" uid="uid://sngqlque0kiq" path="res://Scenes/object_class.gd" id="1_fbsok"]
 [ext_resource type="Texture2D" uid="uid://c4b4oks4v0t35" path="res://3D_Models/bottle_Material.png" id="1_gy0vf"]
@@ -7,6 +7,11 @@
 
 [sub_resource type="Resource" id="Resource_kpu7f"]
 script = ExtResource("2_iv3et")
+name = "bottle"
+material = "glass"
+throwable = true
+stackable = true
+on_ground = true
 metadata/_custom_type_script = "uid://6otvht3884y3"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_di3lg"]

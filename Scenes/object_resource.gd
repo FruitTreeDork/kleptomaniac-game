@@ -11,4 +11,5 @@ class_name object_resource
 @export var stackable : bool
 @export var on_ground : bool
 @export var in_hand : bool
+@export var hand_offset : Vector3
 @export var description : String
