@@ -161,14 +161,14 @@ offset_right = 424.0
 offset_bottom = 696.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_smqvi")
 
-[node name="Button" type="Button" parent="ui" unique_id=458827192]
+[node name="PlayerButton" type="Button" parent="ui" unique_id=458827192]
 layout_mode = 0
 offset_right = 152.0
 offset_bottom = 32.0
 focus_mode = 0
 text = "Player"
 
-[node name="Button2" type="Button" parent="ui" unique_id=2033883199]
+[node name="ItemCatalogButton" type="Button" parent="ui" unique_id=2033883199]
 layout_mode = 0
 offset_left = 152.0
 offset_right = 304.0
@@ -176,7 +176,7 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "Item catalog"
 
-[node name="Button3" type="Button" parent="ui" unique_id=682059168]
+[node name="TasksButton" type="Button" parent="ui" unique_id=682059168]
 layout_mode = 0
 offset_left = 304.0
 offset_right = 456.0
@@ -184,7 +184,7 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "tasks"
 
-[node name="Button4" type="Button" parent="ui" unique_id=605856207]
+[node name="MoneyButton" type="Button" parent="ui" unique_id=605856207]
 layout_mode = 0
 offset_left = 456.0
 offset_right = 608.0
@@ -192,7 +192,7 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "money"
 
-[node name="Button5" type="Button" parent="ui" unique_id=1610001945]
+[node name="PhoneButton" type="Button" parent="ui" unique_id=1610001945]
 layout_mode = 0
 offset_left = 608.0
 offset_right = 760.0
@@ -200,7 +200,7 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "phone"
 
-[node name="Button6" type="Button" parent="ui" unique_id=4318749]
+[node name="SettingsButton" type="Button" parent="ui" unique_id=4318749]
 layout_mode = 0
 offset_left = 760.0
 offset_right = 912.0
@@ -208,23 +208,7 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "settings"
 
-[node name="Button7" type="Button" parent="ui" unique_id=25025436]
-layout_mode = 0
-offset_left = 1216.0
-offset_right = 1280.0
-offset_bottom = 32.0
-focus_mode = 0
-text = "X"
-
-[node name="Button8" type="Button" parent="ui" unique_id=589944137]
-layout_mode = 0
-offset_left = 1152.0
-offset_right = 1216.0
-offset_bottom = 32.0
-focus_mode = 0
-text = "|_|"
-
-[node name="Button9" type="Button" parent="ui" unique_id=64715801]
+[node name="MinimizeButton" type="Button" parent="ui" unique_id=64715801]
 layout_mode = 0
 offset_left = 1088.0
 offset_right = 1152.0
@@ -232,7 +216,23 @@ offset_bottom = 32.0
 focus_mode = 0
 text = "-"
 
-[node name="Label" type="Label" parent="ui" unique_id=1502845543]
+[node name="MaximizeButton" type="Button" parent="ui" unique_id=589944137]
+layout_mode = 0
+offset_left = 1152.0
+offset_right = 1216.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "|_|"
+
+[node name="QuitButton" type="Button" parent="ui" unique_id=25025436]
+layout_mode = 0
+offset_left = 1216.0
+offset_right = 1280.0
+offset_bottom = 32.0
+focus_mode = 0
+text = "X"
+
+[node name="DebugHealthLabel" type="Label" parent="ui" unique_id=1502845543]
 layout_mode = 0
 offset_left = 816.0
 offset_top = 600.0
@@ -245,7 +245,7 @@ Could be: Whatever else lowk, whatever yall think is good"
 
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
-[connection signal="pressed" from="ui/Button7" to="." method="_on_button_7_pressed"]
-[connection signal="pressed" from="ui/Button8" to="." method="_on_button_8_pressed"]
-[connection signal="toggled" from="ui/Button8" to="." method="_on_button_8_toggled"]
-[connection signal="pressed" from="ui/Button9" to="." method="_on_button_9_pressed"]
+[connection signal="pressed" from="ui/MinimizeButton" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="ui/MaximizeButton" to="." method="_on_maximize_button_pressed"]
+[connection signal="pressed" from="ui/QuitButton" to="." method="_on_button_7_pressed"]
+[connection signal="pressed" from="ui/QuitButton" to="." method="_on_quit_button_pressed"]

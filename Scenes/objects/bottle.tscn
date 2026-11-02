@@ -11,7 +11,6 @@ name = "bottle"
 material = "glass"
 throwable = true
 stackable = true
-on_ground = true
 metadata/_custom_type_script = "uid://6otvht3884y3"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_di3lg"]

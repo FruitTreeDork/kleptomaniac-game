@@ -6,6 +6,7 @@ class_name player
 
 ### UI ###
 @onready var bg_pan: Panel = $ui/bg_pan
+var fullscreen_toggle = false
 
 
 @export var left_hand_marker: Node3D
@@ -49,84 +50,26 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		head.rotate_y(-event.relative.x * SENSITIVITY)
-		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
-	
-	if event.is_action_pressed("esc"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			in_settings = true
-			bg_pan.visible = true
-			
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			in_settings = false
-			bg_pan.visible = false
-			
-			
+	HandleMouseLook(event)
+	HandleSettingsActivation(event)
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Adds the Gravity for Player
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	
-	if right_hand_item:
-		pass
-	
-
+	# Allows Movement Input When Game Isn't Paused
 	if !in_settings:
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
-		
-		if left_hand_item and Input.is_action_just_pressed("drop_item_left"):
-			left_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-			left_hand_obj.get_child(0).reparent(self.get_parent())
-			left_hand_item = null
-		if right_hand_item and Input.is_action_just_pressed("drop_item_right"):
-			right_hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-			right_hand_obj.get_child(0).reparent(self.get_parent())
-			right_hand_item = null
-		
-		# Using Left Hand
-		if Input.is_action_pressed("left_click"):
-			left_hand.visible = true
-			left_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
-		elif !left_hand_item:
-			left_hand.visible = false
-			left_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
-		
-		# Using Right Hand
-		if Input.is_action_pressed("right_click"):
-			right_hand.visible = true
-			right_hand_area.process_mode = Node.PROCESS_MODE_INHERIT
-		elif !right_hand_item:
-			right_hand.visible = false
-			right_hand_area.process_mode = Node.PROCESS_MODE_DISABLED
+		HandleInput()
 	
-	HandleHandMovement(left_hand, left_hand_marker)
-	HandleHandMovement(right_hand, right_hand_marker)
+	HandleHandFollow(left_hand, left_hand_marker)
+	HandleHandFollow(right_hand, right_hand_marker)
 	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-	
-	if !in_settings:
-		move_and_slide()
+	move_and_slide()
 
 
-func HandleHandMovement(hand: RigidBody3D, marker: Marker3D):
+func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 	var follow_pos = marker.global_position - hand.global_position
 	hand.linear_velocity = (follow_pos * HAND_STRENGTH)
 	hand.linear_velocity = (follow_pos * HAND_STRENGTH)
@@ -137,51 +80,29 @@ func HandleHandMovement(hand: RigidBody3D, marker: Marker3D):
 
 
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
-	#print("Hello from the right hand: ", body)
 	if body.is_in_group("objects") and body is object_area:
 		var to_parent : object = body.my_object
-		#print("Hello from the right hand: ", body)
-		#while get_parent() != null:
 		to_parent.reparent(right_hand_obj)
 		
-		to_parent.position = Vector3.ZERO + to_parent.obj_data.hand_offset
+		to_parent.position = to_parent.obj_data.hand_offset
 		to_parent.rotation = Vector3.ZERO
 		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
-		
 		to_parent.obj_data.in_hand = true
-		to_parent.obj_data.on_ground = false
 		right_hand_item = to_parent
-		
-		print(right_hand_item)
-		#right_hand_item.owner = right_hand
-		#print(to_parent.name)
-		#print("PARENT: ", right_hand_item)
-		
 
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects") and body is object_area:
-		var to_parent : object = body.my_object
-		#print("Hello from the right hand: ", body)
-		#while get_parent() != null:
-		to_parent.reparent(left_hand_obj)
-		to_parent.position = Vector3.ZERO + Vector3(-to_parent.obj_data.hand_offset.x, to_parent.obj_data.hand_offset.y, to_parent.obj_data.hand_offset.z)
-		to_parent.rotation = Vector3.ZERO
-		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
-		
-		to_parent.obj_data.in_hand = true
-		to_parent.obj_data.on_ground = false
-		left_hand_item = to_parent
-		
-		print(left_hand_item)
-		#right_hand_item.owner = right_hand
-		#print(to_parent.name)
-		#print("PARENT: ", right_hand_item)
+		var held_object : object = body.my_object
+		held_object.reparent(left_hand_obj)
+		held_object.process_mode = Node.PROCESS_MODE_DISABLED
+		held_object.position = Vector3(-held_object.obj_data.hand_offset.x, held_object.obj_data.hand_offset.y, held_object.obj_data.hand_offset.z)
+		held_object.rotation = Vector3.ZERO
+		held_object.obj_data.in_hand = true
+		left_hand_item = held_object
 
 
-var fullscreen_toggle = false
-
-func _on_button_8_pressed() -> void:
+func _on_maximize_button_pressed() -> void:
 	if fullscreen_toggle:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		fullscreen_toggle = false
@@ -190,9 +111,78 @@ func _on_button_8_pressed() -> void:
 		fullscreen_toggle = true
 
 
-func _on_button_9_pressed() -> void:
+func _on_minimize_button_pressed() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
 
 
-func _on_button_7_pressed() -> void:
+func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func HandleInput():
+	HandleWASDInput()
+	HandleJump()
+	HandleItemDrop(left_hand_obj, left_hand_item, "drop_item_left")
+	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
+	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
+	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
+
+
+func HandleWASDInput():
+	# Obtains the WASD Input Direction and Velocity for Player
+	var input_dir := Input.get_vector("left", "right", "up", "down")
+	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+
+func HandleMouseLook(event: InputEvent):
+	# Capturing Mouse Look for Player
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		head.rotate_y(-event.relative.x * SENSITIVITY)
+		camera.rotate_x(-event.relative.y * SENSITIVITY)
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+
+
+func HandleJump():
+	# Handles Jumping for Player
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+
+func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input: String):
+	# Handles Extending Hand When Player is Holding Click or if Item is in Hand
+	if Input.is_action_pressed(input):
+		hand.visible = true
+		hand_area.process_mode = Node.PROCESS_MODE_INHERIT
+	elif !hand_item:
+		hand.visible = false
+		hand_area.process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
+	if hand_item and Input.is_action_just_pressed(input):
+		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+		hand_obj.get_child(0).obj_data.in_hand = false
+		hand_obj.get_child(0).reparent(self.get_parent())
+		if hand_obj == left_hand_obj:
+			left_hand_item = null
+		else:
+			right_hand_item = null
+
+
+func HandleSettingsActivation(event: InputEvent):
+	# Capturing Pause Menu and Making Mouse Cursor Visible
+	if event.is_action_pressed("esc"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			in_settings = true
+			bg_pan.visible = true
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			in_settings = false
+			bg_pan.visible = false
