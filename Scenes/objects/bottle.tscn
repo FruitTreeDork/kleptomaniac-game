@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://8foyldyj3lgb"]
 
 [ext_resource type="Script" uid="uid://sngqlque0kiq" path="res://Scenes/object_class.gd" id="1_fbsok"]
-[ext_resource type="Texture2D" uid="uid://c4b4oks4v0t35" path="res://3D_Models/bottle_Material.png" id="1_gy0vf"]
+[ext_resource type="Texture2D" uid="uid://c4b4oks4v0t35" path="res://3D_Models/textures/bottle_Material.png" id="1_gy0vf"]
 [ext_resource type="Script" uid="uid://6otvht3884y3" path="res://Scenes/object_resource.gd" id="2_iv3et"]
 [ext_resource type="Script" uid="uid://d3dng7ki10re0" path="res://Scenes/objects/object_body.gd" id="4_gdpua"]
 
