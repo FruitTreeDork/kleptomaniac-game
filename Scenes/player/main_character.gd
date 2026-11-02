@@ -68,7 +68,6 @@ func _on_right_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects") and body is object:
 		var to_parent : object = body
 		to_parent.reparent(right_hand_obj)
-		
 		to_parent.position = to_parent.obj_data.hand_offset
 		to_parent.rotation = Vector3.ZERO
 		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
