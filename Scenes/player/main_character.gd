@@ -65,7 +65,7 @@ func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 
 
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("objects") and body is object:
+	if body.is_in_group("objects") and body is object and !right_hand_item:
 		var to_parent : object = body
 		to_parent.reparent(right_hand_obj)
 		to_parent.position = to_parent.obj_data.hand_offset
@@ -76,7 +76,7 @@ func _on_right_hand_area_body_entered(body: Node3D) -> void:
 
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("objects") and body is object:
+	if body.is_in_group("objects") and body is object and !left_hand_item:
 		var held_object : object = body
 		held_object.reparent(left_hand_obj)
 		held_object.process_mode = Node.PROCESS_MODE_DISABLED

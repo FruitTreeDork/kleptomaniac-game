@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
-[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
+[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/UI/ingame_ui.tscn" id="4_15qo1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yih1u"]
 
