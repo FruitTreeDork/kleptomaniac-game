@@ -3,12 +3,6 @@ extends CharacterBody3D
 class_name player
 
 
-
-### UI ###
-@onready var bg_pan: Panel = $ui/bg_pan
-var fullscreen_toggle = false
-
-
 @export var left_hand_marker: Node3D
 @export var right_hand_marker: Node3D
 
@@ -41,34 +35,26 @@ var right_hand_item : object
 @onready var right_hand_obj: Node3D = $Hands/RightHand/right_hand_obj
 @onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
 
+@export var ingame_ui: CanvasLayer
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	ingame_ui.settings_toggled.connect(_on_settings_toggled)
 	left_hand.visible = false
 	right_hand.visible = false
-	bg_pan.visible = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	HandleMouseLook(event)
-	HandleSettingsActivation(event)
 
 
-func _physics_process(delta: float) -> void:
-	# Adds the Gravity for Player
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
-	# Allows Movement Input When Game Isn't Paused
-	if !in_settings:
-		HandleInput()
-	
-	HandleHandFollow(left_hand, left_hand_marker)
-	HandleHandFollow(right_hand, right_hand_marker)
-	
-	move_and_slide()
+# Checks Settings signal from the InGameUI Scene If Mouse Cursor is Activated
+func _on_settings_toggled(is_toggled: bool):
+	in_settings = is_toggled
 
 
+# Handles the Hand Nodes Following Camera (Since They Aren't Child Nodes)
 func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 	var follow_pos = marker.global_position - hand.global_position
 	hand.linear_velocity = (follow_pos * HAND_STRENGTH)
@@ -76,7 +62,6 @@ func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 
 	var follow_rot = (marker.global_basis * hand.global_basis.inverse()).get_rotation_quaternion()
 	hand.angular_velocity = follow_rot.get_axis() * follow_rot.get_angle() * HAND_STRENGTH
-
 
 
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
@@ -102,23 +87,22 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 		left_hand_item = held_object
 
 
-func _on_maximize_button_pressed() -> void:
-	if fullscreen_toggle:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		fullscreen_toggle = false
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		fullscreen_toggle = true
+func _physics_process(delta: float) -> void:
+	# Adds the Gravity for Player
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	# If Mouse Cursor isn't Activated, Player Input is Allowed
+	if !in_settings:
+		HandleInput()
+	
+	HandleHandFollow(left_hand, left_hand_marker)
+	HandleHandFollow(right_hand, right_hand_marker)
+	
+	move_and_slide()
 
 
-func _on_minimize_button_pressed() -> void:
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
-
-
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
-
-
+# Handles All Player Input 
 func HandleInput():
 	HandleWASDInput()
 	HandleJump()
@@ -128,8 +112,8 @@ func HandleInput():
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
 
 
+# Obtains the WASD Input Direction and Velocity for Player
 func HandleWASDInput():
-	# Obtains the WASD Input Direction and Velocity for Player
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
@@ -140,22 +124,22 @@ func HandleWASDInput():
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 
+# Capturing Mouse Look for Player
 func HandleMouseLook(event: InputEvent):
-	# Capturing Mouse Look for Player
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 
 
+# Handles Jumping for Player
 func HandleJump():
-	# Handles Jumping for Player
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 
+# Handles Extending Hand When Player is Holding Click or if Item is in Hand
 func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input: String):
-	# Handles Extending Hand When Player is Holding Click or if Item is in Hand
 	if Input.is_action_pressed(input):
 		hand.visible = true
 		hand_area.process_mode = Node.PROCESS_MODE_INHERIT
@@ -164,6 +148,7 @@ func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input:
 		hand_area.process_mode = Node.PROCESS_MODE_DISABLED
 
 
+# Handles Dropping the Item by Reparenting From the Hand to the World
 func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 	if hand_item and Input.is_action_just_pressed(input):
 		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
@@ -173,16 +158,3 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 			left_hand_item = null
 		else:
 			right_hand_item = null
-
-
-func HandleSettingsActivation(event: InputEvent):
-	# Capturing Pause Menu and Making Mouse Cursor Visible
-	if event.is_action_pressed("esc"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			in_settings = true
-			bg_pan.visible = true
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			in_settings = false
-			bg_pan.visible = false

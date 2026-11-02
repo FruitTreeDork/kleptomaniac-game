@@ -60,17 +60,12 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 script = ExtResource("1_fbsok")
 obj_data = SubResource("Resource_kpu7f")
 
-[node name="model" type="Node3D" parent="." unique_id=1793984842]
-
-[node name="Cylinder" type="MeshInstance3D" parent="model" unique_id=83896859]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1317635774 groups=["objects"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 0)
-mesh = SubResource("ArrayMesh_5x8px")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="model/Cylinder" unique_id=1317635774 groups=["objects"]]
 script = ExtResource("4_gdpua")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="model/Cylinder/StaticBody3D" unique_id=536291216]
-shape = SubResource("ConvexPolygonShape3D_fbsok")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=83896859]
+mesh = SubResource("ArrayMesh_5x8px")
 
-[node name="Empty" type="Node3D" parent="model" unique_id=197350030]
-transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=536291216]
+shape = SubResource("ConvexPolygonShape3D_fbsok")
