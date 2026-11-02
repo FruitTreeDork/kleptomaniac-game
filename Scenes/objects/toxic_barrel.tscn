@@ -1,7 +1,16 @@
 [gd_scene format=4 uid="uid://bf8jnfrx0g5tp"]
 
+[ext_resource type="Script" uid="uid://sngqlque0kiq" path="res://Scenes/object_class.gd" id="1_6d2gk"]
 [ext_resource type="Texture2D" uid="uid://up58tyeudr6q" path="res://3D_Models/textures/Toxic_barrel_Cylinder.png" id="1_sjen0"]
 [ext_resource type="Texture2D" uid="uid://dv2eb0elufvro" path="res://3D_Models/textures/Toxic_barrel_Cylinder_1.png" id="2_6d2gk"]
+[ext_resource type="Script" uid="uid://6otvht3884y3" path="res://Scenes/object_resource.gd" id="2_8mr62"]
+
+[sub_resource type="Resource" id="Resource_15qo1"]
+script = ExtResource("2_8mr62")
+name = "toxic barrel"
+material = "metal"
+throwable = true
+metadata/_custom_type_script = "uid://6otvht3884y3"
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sjen0"]
 points = PackedVector3Array(-1, -1.0909091, -0.00019574165, -0.92404073, -1.0909091, -0.382733, -0.92404073, -1.0909091, 0.38253725, -1, 1.8179294, -0.00019574165, -0.7071261, -1.0909091, -0.7071261, -0.92404073, 1.8179294, -0.382733, -0.7071261, -1.0909091, 0.7069303, -0.92404073, 1.8179294, 0.38253725, 0.5090054, 1.8545457, -0.00019574165, -0.382733, -1.0909091, -0.92404073, -0.7071261, 1.8179294, -0.7071261, 0.5256461, 1.8545457, -0.08359438, 0.572827, 1.8545457, -0.15446359, -0.382733, -1.0909091, 0.92384493, -0.7071261, 1.8179294, 0.7069303, 0.572827, 1.8545457, 0.15407205, 0.5256461, 1.8545457, 0.08339858, -0.00019574165, -1.0909091, -1, -0.382733, 1.8179294, -0.92404073, 0.6436962, 1.8545457, -0.20164448, -0.00019574165, -1.0909091, 1, -0.382733, 1.8179294, 0.92384493, 0.6436962, 1.8545457, 0.20144868, 0.38253725, -1.0909091, -0.92404073, -0.00019574165, 1.8179294, -1, 0.72709477, 1.8545457, -0.21828502, 0.38253725, -1.0909091, 0.92384493, -0.00019574165, 1.8179294, 1, 0.72709477, 1.8545457, 0.21808922, 0.7069303, -1.0909091, -0.7071261, 0.38253725, 1.8179294, -0.92404073, 0.8106891, 1.8545457, -0.20164448, 0.7069303, -1.0909091, 0.7069303, 0.38253725, 1.8179294, 0.92384493, 0.8106891, 1.8545457, 0.20144868, 0.92384493, -1.0909091, -0.382733, 0.7069303, 1.8179294, -0.7071261, 0.88136256, 1.8545457, -0.15446359, 0.92384493, -1.0909091, 0.38253725, 0.7069303, 1.8179294, 0.7069303, 0.88136256, 1.8545457, 0.15407205, 1, -1.0909091, -0.00019574165, 0.92384493, 1.8179294, -0.382733, 0.9287392, 1.8545457, -0.08359438, 0.92384493, 1.8179294, 0.38253725, 0.9287392, 1.8545457, 0.08339858, 1, 1.8179294, -0.00019574165, 0.94537985, 1.8545457, -0.00019574165)
@@ -86,19 +95,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6ogw6")
 
-[node name="toxic_barrel" type="Node3D" unique_id=1717803274]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+[node name="ToxicBarrel" type="RigidBody3D" unique_id=1681238014 groups=["objects"]]
+mass = 10.0
+script = ExtResource("1_6d2gk")
+obj_data = SubResource("Resource_15qo1")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=287092446]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=781888588]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.4, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=801926469]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.4, 0)
 shape = SubResource("ConvexPolygonShape3D_sjen0")
 
-[node name="Cylinder_001" type="MeshInstance3D" parent="RigidBody3D" unique_id=1917222807]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.4, 0)
+[node name="Cylinder_001" type="MeshInstance3D" parent="." unique_id=1917222807]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.4, 0)
 mesh = SubResource("ArrayMesh_ps6jq")
 
-[node name="Cylinder_002" type="MeshInstance3D" parent="RigidBody3D" unique_id=87007328]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+[node name="Cylinder_002" type="MeshInstance3D" parent="." unique_id=87007328]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_62ubd")
