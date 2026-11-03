@@ -34,7 +34,7 @@ var right_hand_item : object
 
 @onready var right_hand_obj: Node3D = $Hands/RightHand/right_hand_obj
 @onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
-@onready var two_handed_obj_pos: Node3D = $Hands/two_handed_obj_pos
+@onready var two_handed_obj_pos: Node3D = $Hands/RightHand/two_handed_obj_pos
 
 @export var ingame_ui: CanvasLayer
 
@@ -84,6 +84,8 @@ func _on_right_hand_area_body_entered(body: Node3D) -> void:
 			to_parent.obj_data.in_hand = true
 			right_hand_item = to_parent
 			left_hand_item = to_parent
+			right_hand.visible = true
+			left_hand.visible = true
 
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
@@ -104,6 +106,8 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 			held_object.obj_data.in_hand = true
 			right_hand_item = held_object
 			left_hand_item = held_object
+			right_hand.visible = true
+			left_hand.visible = true
 
 
 func _physics_process(delta: float) -> void:
