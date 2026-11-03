@@ -34,6 +34,7 @@ var right_hand_item : object
 
 @onready var right_hand_obj: Node3D = $Hands/RightHand/right_hand_obj
 @onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
+@onready var two_handed_obj_pos: Node3D = $Hands/RightHand/two_handed_obj_pos
 
 @export var ingame_ui: CanvasLayer
 
@@ -67,23 +68,46 @@ func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects") and body is object and !right_hand_item:
 		var to_parent : object = body
-		to_parent.reparent(right_hand_obj)
-		to_parent.position = to_parent.obj_data.hand_offset
-		to_parent.rotation = Vector3.ZERO
-		to_parent.process_mode = Node.PROCESS_MODE_DISABLED
-		to_parent.obj_data.in_hand = true
-		right_hand_item = to_parent
+		#print(to_parent.obj_data.two_handed)
+		if !to_parent.obj_data.two_handed:
+			to_parent.reparent(right_hand_obj)
+			to_parent.position = to_parent.obj_data.hand_offset
+			to_parent.rotation = Vector3.ZERO
+			to_parent.process_mode = Node.PROCESS_MODE_DISABLED
+			to_parent.obj_data.in_hand = true
+			right_hand_item = to_parent
+		else:
+			to_parent.reparent(two_handed_obj_pos)
+			to_parent.position = to_parent.obj_data.hand_offset
+			to_parent.rotation = Vector3.ZERO
+			to_parent.process_mode = Node.PROCESS_MODE_DISABLED
+			to_parent.obj_data.in_hand = true
+			right_hand_item = to_parent
+			left_hand_item = to_parent
+			right_hand.visible = true
+			left_hand.visible = true
 
 
 func _on_left_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects") and body is object and !left_hand_item:
 		var held_object : object = body
-		held_object.reparent(left_hand_obj)
-		held_object.process_mode = Node.PROCESS_MODE_DISABLED
-		held_object.position = Vector3(-held_object.obj_data.hand_offset.x, held_object.obj_data.hand_offset.y, held_object.obj_data.hand_offset.z)
-		held_object.rotation = Vector3.ZERO
-		held_object.obj_data.in_hand = true
-		left_hand_item = held_object
+		if !held_object.obj_data.two_handed:
+			held_object.reparent(left_hand_obj)
+			held_object.process_mode = Node.PROCESS_MODE_DISABLED
+			held_object.position = Vector3(-held_object.obj_data.hand_offset.x, held_object.obj_data.hand_offset.y, held_object.obj_data.hand_offset.z)
+			held_object.rotation = Vector3.ZERO
+			held_object.obj_data.in_hand = true
+			left_hand_item = held_object
+		else:
+			held_object.reparent(two_handed_obj_pos)
+			held_object.position = held_object.obj_data.hand_offset
+			held_object.rotation = Vector3.ZERO
+			held_object.process_mode = Node.PROCESS_MODE_DISABLED
+			held_object.obj_data.in_hand = true
+			right_hand_item = held_object
+			left_hand_item = held_object
+			right_hand.visible = true
+			left_hand.visible = true
 
 
 func _physics_process(delta: float) -> void:
@@ -149,7 +173,7 @@ func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input:
 
 # Handles Dropping the Item by Reparenting From the Hand to the World
 func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
-	if hand_item and Input.is_action_just_pressed(input):
+	if hand_item and Input.is_action_just_pressed(input) and !hand_item.obj_data.two_handed:
 		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
 		hand_obj.get_child(0).obj_data.in_hand = false
 		hand_obj.get_child(0).reparent(self.get_parent())
@@ -157,3 +181,10 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 			left_hand_item = null
 		else:
 			right_hand_item = null
+	elif hand_item and Input.is_action_just_pressed(input) and hand_item.obj_data.two_handed:
+		two_handed_obj_pos.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+		two_handed_obj_pos.get_child(0).obj_data.in_hand = false
+		two_handed_obj_pos.get_child(0).reparent(self.get_parent())
+		right_hand_item = null
+		left_hand_item = null
+		

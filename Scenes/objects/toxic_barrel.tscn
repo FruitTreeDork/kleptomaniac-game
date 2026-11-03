@@ -9,6 +9,7 @@
 script = ExtResource("2_8mr62")
 name = "toxic barrel"
 material = "metal"
+two_handed = true
 throwable = true
 metadata/_custom_type_script = "uid://6otvht3884y3"
 

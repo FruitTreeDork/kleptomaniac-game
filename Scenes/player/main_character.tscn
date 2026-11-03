@@ -71,6 +71,9 @@ shape = SubResource("SphereShape3D_22vlk")
 [node name="right_hand_obj" type="Node3D" parent="Hands/RightHand" unique_id=386646770]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15008765, 0, -0.50000006)
 
+[node name="two_handed_obj_pos" type="Node3D" parent="Hands/RightHand" unique_id=339519976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0, -0.50000006)
+
 [node name="Head" type="Node3D" parent="." unique_id=642812763]
 physics_interpolation_mode = 2
 
