@@ -76,7 +76,7 @@ func _on_right_hand_area_body_entered(body: Node3D) -> void:
 			to_parent.process_mode = Node.PROCESS_MODE_DISABLED
 			to_parent.obj_data.in_hand = true
 			right_hand_item = to_parent
-		else:
+		elif !left_hand_item:
 			to_parent.reparent(two_handed_obj_pos)
 			to_parent.position = to_parent.obj_data.hand_offset
 			to_parent.rotation = Vector3.ZERO
@@ -98,7 +98,7 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 			held_object.rotation = Vector3.ZERO
 			held_object.obj_data.in_hand = true
 			left_hand_item = held_object
-		else:
+		elif !right_hand_item:
 			held_object.reparent(two_handed_obj_pos)
 			held_object.position = held_object.obj_data.hand_offset
 			held_object.rotation = Vector3.ZERO
