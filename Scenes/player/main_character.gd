@@ -10,6 +10,7 @@ const HAND_STRENGTH: float = 25.0
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
+const PUSH_FORCE = 2.0
 
 const ARM_BACK : float = 200
 
@@ -67,23 +68,22 @@ func HandleHandFollow(hand: RigidBody3D, marker: Marker3D):
 
 func _on_right_hand_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("objects") and body is object and !right_hand_item:
-		var to_parent : object = body
-		#print(to_parent.obj_data.two_handed)
-		if !to_parent.obj_data.two_handed:
-			to_parent.reparent(right_hand_obj)
-			to_parent.position = to_parent.obj_data.hand_offset
-			to_parent.rotation = Vector3.ZERO
-			to_parent.process_mode = Node.PROCESS_MODE_DISABLED
-			to_parent.obj_data.in_hand = true
-			right_hand_item = to_parent
+		var held_object : object = body
+		if !held_object.obj_data.two_handed:
+			held_object.reparent(right_hand_obj)
+			held_object.position = held_object.obj_data.hand_offset
+			held_object.rotation = Vector3.ZERO
+			held_object.process_mode = Node.PROCESS_MODE_DISABLED
+			held_object.obj_data.in_hand = true
+			right_hand_item = held_object
 		elif !left_hand_item:
-			to_parent.reparent(two_handed_obj_pos)
-			to_parent.position = to_parent.obj_data.hand_offset
-			to_parent.rotation = Vector3.ZERO
-			to_parent.process_mode = Node.PROCESS_MODE_DISABLED
-			to_parent.obj_data.in_hand = true
-			right_hand_item = to_parent
-			left_hand_item = to_parent
+			held_object.reparent(two_handed_obj_pos)
+			held_object.position = held_object.obj_data.hand_offset
+			held_object.rotation = Vector3.ZERO
+			held_object.process_mode = Node.PROCESS_MODE_DISABLED
+			held_object.obj_data.in_hand = true
+			right_hand_item = held_object
+			left_hand_item = held_object
 			right_hand.visible = true
 			left_hand.visible = true
 
@@ -123,6 +123,18 @@ func _physics_process(delta: float) -> void:
 	HandleHandFollow(right_hand, right_hand_marker)
 	
 	move_and_slide()
+	
+	HandleObjectCollision()
+
+
+func HandleObjectCollision():
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider is RigidBody3D:
+			var push_dir = -collision.get_normal()
+			push_dir.y = 0
+			collider.apply_central_impulse(push_dir * PUSH_FORCE)
 
 
 # Handles All Player Input 
