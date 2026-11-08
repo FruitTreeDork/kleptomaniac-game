@@ -3,16 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
-<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
-=======
-<<<<<<< HEAD
-[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/UI/ingame_ui.tscn" id="4_15qo1"]
-[ext_resource type="Texture2D" uid="uid://dakpcvka08i1k" path="res://3D_Models/textures/kamek guy.jpg" id="5_bc04g"]
-=======
-[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
->>>>>>> 721cf30714dc2238cba4b39644920f6c8e564cc0
->>>>>>> Stashed changes
 
 [sub_resource type="BoxMesh" id="BoxMesh_bc04g"]
 size = Vector3(12, 0.001, 12)
@@ -36,7 +27,6 @@ background_mode = 2
 sky = SubResource("Sky_gv3r5")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_msx0k"]
-albedo_texture = ExtResource("5_bc04g")
 
 [node name="test_area" type="Node3D" unique_id=190970809]
 
