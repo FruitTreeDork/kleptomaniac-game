@@ -1,19 +1,35 @@
-[gd_scene format=3 uid="uid://bjap2q4jbf4a7"]
+[gd_scene format=4 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_kbjuv"]
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_msx0k"]
 [ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
+[ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="4_m0xqr"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_bc04g"]
-size = Vector3(12, 0.001, 12)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbjuv"]
+albedo_texture = ExtResource("4_m0xqr")
+metallic_specular = 0.0
+texture_filter = 2
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_3n873"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_msx0k"]
+_surfaces = [{
+"aabb": AABB(-11.5, -0.5, -11.5, 22, 1, 22.5),
+"attribute_data": PackedByteArray("AACowAAAgL4AALhAAACAvgAAuEAAAIA+AACowAAAgD4AALBAAACAPgAAuMAAAIA+AAC4wAAAgL4AALBAAACAvgAAsMAAALhAAACwwAAAqMAAALhAAACowAAAuEAAALhAAACwQAAAuEAAALjAAAC4QAAAuMAAAKjAAACwQAAAqMAAALDAAACAvgAAuEAAAIC+AAC4QAAAgD4AALDAAACAPgAAqEAAAIA+AAC4wAAAgD4AALjAAACAvgAAqEAAAIC+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcA"),
+"material": SubResource("StandardMaterial3D_kbjuv"),
+"name": "__TB_empty",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAoQQAAAD8AADjBAAA4wQAAAD8AADjBAAA4wQAAAL8AADjBAAAoQQAAAL8AADjBAAA4wQAAAL8AADBBAAA4wQAAAL8AADjBAAA4wQAAAD8AADjBAAA4wQAAAD8AADBBAAA4wQAAAL8AADBBAAAoQQAAAL8AADBBAAAoQQAAAL8AADjBAAA4wQAAAL8AADjBAAA4wQAAAD8AADBBAAA4wQAAAD8AADjBAAAoQQAAAD8AADjBAAAoQQAAAD8AADBBAAAoQQAAAD8AADBBAAAoQQAAAD8AADjBAAAoQQAAAL8AADjBAAAoQQAAAL8AADBBAAAoQQAAAL8AADBBAAA4wQAAAL8AADBBAAA4wQAAAD8AADBBAAAoQQAAAD8AADBB/////wAA/7//////AAD/v/////8AAP+//////wAA/78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD//////38AAP//////fwAA//////9/AAD//////3////9//7//f////3//v/9/////f/+//3////9//7////9//////////3//////////f/////////9///////9//3////+//3//f////7//f/9/////v/9//3////+/")
+}]
 
-[sub_resource type="BoxMesh" id="BoxMesh_yih1u"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kpu7f"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m0xqr"]
+points = PackedVector3Array(10.5, 0.5, 11, 10.5, -0.5, 11, -11.5, 0.5, 11, -11.5, -0.5, 11, 10.5, 0.5, -11.5, 10.5, -0.5, -11.5, -11.5, 0.5, -11.5, -11.5, -0.5, -11.5)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3n873"]
 sky_top_color = Color(0, 0, 0.13333334, 1)
@@ -26,75 +42,55 @@ sky_material = SubResource("ProceduralSkyMaterial_3n873")
 background_mode = 2
 sky = SubResource("Sky_gv3r5")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_msx0k"]
-
 [node name="test_area" type="Node3D" unique_id=190970809]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1847346162]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 4.9715576, -0.019993067, 4.963684)
-mesh = SubResource("BoxMesh_bc04g")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=469391767]
-collision_mask = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=615090982]
-shape = SubResource("WorldBoundaryShape3D_3n873")
 
 [node name="drizzle" parent="." unique_id=166496182 node_paths=PackedStringArray("ingame_ui") instance=ExtResource("1_gv3r5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 ingame_ui = NodePath("../InGameUI")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=908890511]
-transform = Transform3D(-1, 0, 8.7422784e-08, 8.742278e-08, 0, 1, 0, 1, 0, 0, 5.9327717, -1.1159191)
+[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1423132196]
+script = ExtResource("2_kbjuv")
+local_map_file = "uid://4krqfal8mki3"
+map_settings = ExtResource("3_msx0k")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1000871667]
+collision_mask = 0
+
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1046171720]
+mesh = SubResource("ArrayMesh_msx0k")
+
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1919790746]
+shape = SubResource("ConvexPolygonShape3D_m0xqr")
+
+[node name="Objects" type="Node3D" parent="." unique_id=72786071]
+
+[node name="bottle" parent="Objects" unique_id=762593186 instance=ExtResource("2_kpu7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+
+[node name="bottle2" parent="Objects" unique_id=626855485 instance=ExtResource("2_kpu7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -3)
+
+[node name="bottle3" parent="Objects" unique_id=52352538 instance=ExtResource("2_kpu7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999998, 1, -4)
+
+[node name="toxic_barrel" parent="Objects" unique_id=1717803274 instance=ExtResource("3_3n873")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.475995, 1.8, -5.5053387)
+
+[node name="Environment" type="Node3D" parent="." unique_id=516493056]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment" unique_id=908890511]
+transform = Transform3D(-1, 0, 8.742278e-08, 8.742278e-08, 0, 1, 0, 1, 0, 0, 5.9327717, -1.1159191)
 light_color = Color(0.98826236, 0, 0.28320342, 1)
 shadow_enabled = true
 spot_range = 8.675457
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=64476336]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -3)
-mesh = SubResource("BoxMesh_yih1u")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2" unique_id=1124628074]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=886491883]
-shape = SubResource("ConvexPolygonShape3D_kpu7f")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1949246245]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1949246245]
 environment = SubResource("Environment_yih1u")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=801795581]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=801795581]
 transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
-[node name="bottle" parent="." unique_id=762593186 instance=ExtResource("2_kpu7f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
-
-[node name="bottle2" parent="." unique_id=626855485 instance=ExtResource("2_kpu7f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -3)
-
-[node name="bottle3" parent="." unique_id=52352538 instance=ExtResource("2_kpu7f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999998, 1, -4)
-
-[node name="toxic_barrel" parent="." unique_id=1717803274 instance=ExtResource("3_3n873")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.475995, 0.7999999, -5.5053387)
-
 [node name="InGameUI" parent="." unique_id=1286986647 instance=ExtResource("4_15qo1")]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1414535115]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19.5, 0)
-use_collision = true
-size = Vector3(7, 40, 7)
-material = SubResource("StandardMaterial3D_msx0k")
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=976582532]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19.5, 10)
-use_collision = true
-size = Vector3(7, 40, 7)
-material = SubResource("StandardMaterial3D_msx0k")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=850903625]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19.5, -10)
-use_collision = true
-size = Vector3(7, 40, 7)
-material = SubResource("StandardMaterial3D_msx0k")

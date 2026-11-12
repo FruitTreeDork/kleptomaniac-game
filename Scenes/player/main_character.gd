@@ -3,9 +3,6 @@ extends CharacterBody3D
 class_name player
 
 
-@export var left_hand_marker: Node3D
-@export var right_hand_marker: Node3D
-
 const HAND_STRENGTH: float = 25.0
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -28,6 +25,9 @@ var right_hand_item : object
 
 @onready var left_hand: Node3D = $Hands/LeftHand
 @onready var right_hand: Node3D = $Hands/RightHand
+
+@onready var left_hand_marker: Marker3D = $Head/Camera3D/MarkerLeftHand
+@onready var right_hand_marker: Marker3D = $Head/Camera3D/MarkerRightHand
 
 @onready var left_hand_area: Area3D = $Hands/LeftHand/LeftHandArea
 @onready var right_hand_area: Area3D = $Hands/RightHand/RightHandArea
