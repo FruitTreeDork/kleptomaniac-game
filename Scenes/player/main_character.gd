@@ -17,6 +17,8 @@ const ARM_BACK : float = 200
 var in_settings : bool = false
 var left_hand_extend : bool = false
 var right_hand_extend : bool = false
+var left_hand_throwing : bool = false
+var right_hand_throwing : bool = false
 
 var left_hand_item : object
 var right_hand_item : object
@@ -145,6 +147,10 @@ func HandleInput():
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
+	
+	if Input.is_action_pressed("left_click") and left_hand_item:
+		left_hand_throwing = true
+		print("THROWING")
 
 
 # Obtains the WASD Input Direction and Velocity for Player
@@ -199,4 +205,3 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 		two_handed_obj_pos.get_child(0).reparent(self.get_parent())
 		right_hand_item = null
 		left_hand_item = null
-		
