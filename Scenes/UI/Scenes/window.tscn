@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ba5njqr8l33yr"]
 
-[ext_resource type="Script" uid="uid://cf6webt4218rn" path="res://Scenes/UI/Scripts/Windows/window.gd" id="1_el3b0"]
-[ext_resource type="PackedScene" uid="uid://baae0iqkwey0h" path="res://Scenes/UI/Scenes/tasks.tscn" id="2_lsuwl"]
+[ext_resource type="Script" uid="uid://cf6webt4218rn" path="res://Scenes/ui/Scripts/Windows/window.gd" id="1_el3b0"]
+[ext_resource type="PackedScene" uid="uid://baae0iqkwey0h" path="res://Scenes/ui/Scenes/tasks.tscn" id="2_lsuwl"]
 [ext_resource type="FontFile" uid="uid://2gciqbrdunua" path="res://UI_Assets/Fonts/TAHOMABD.TTF" id="2_sd3g6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jihej"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://baae0iqkwey0h"]
 
-[ext_resource type="Script" uid="uid://du2hoce8ja3iq" path="res://Scenes/UI/Scripts/Windows/task_window.gd" id="1_o05v1"]
+[ext_resource type="Script" uid="uid://du2hoce8ja3iq" path="res://Scenes/ui/Scripts/Windows/task_window.gd" id="1_o05v1"]
 [ext_resource type="FontFile" uid="uid://bsl1nhyexwrlh" path="res://UI_Assets/Fonts/CONSOLA.TTF" id="2_cxjh1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o05v1"]

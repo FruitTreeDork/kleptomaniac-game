@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://drhb06x717bmo"]
 
-[ext_resource type="Script" uid="uid://beg1npqi2qel0" path="res://Scenes/UI/Scripts/Tools/bevel.gd" id="1_p0me4"]
+[ext_resource type="Script" uid="uid://beg1npqi2qel0" path="res://Scenes/ui/Scripts/Tools/bevel.gd" id="1_p0me4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0o8y"]
 bg_color = Color(1, 1, 1, 1)
