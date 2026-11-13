@@ -11,19 +11,20 @@ config_version=5
 [application]
 
 config/name="Kleptomaniac"
+run/main_scene="uid://bjap2q4jbf4a7"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
-
-[autoload]
-
-MainCharacter="*uid://jq8xhdqvk02b"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=2
+window/size/mode=3
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
 [file_customization]
 
@@ -39,6 +40,7 @@ folder_colors={
 [global_group]
 
 player="me"
+objects="objects"
 
 [input]
 

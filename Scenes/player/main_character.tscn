@@ -18,11 +18,9 @@ radius = 0.2569116
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3p8rt"]
 points = PackedVector3Array(0.14462501, 0.13781738, 0.5, 0.14462501, -0.13781738, 0.5, 0.14462501, 0.13781738, -0.5, -0.14465332, 0.13781738, 0.5, -0.14465332, -0.13781738, 0.5, 0.14462501, -0.13781738, -0.5, -0.14465332, 0.13781738, -0.5, -0.14465332, -0.13781738, -0.5)
 
-[node name="drizzle" type="CharacterBody3D" unique_id=166496182 node_paths=PackedStringArray("left_hand_marker", "right_hand_marker") groups=["player"]]
+[node name="drizzle" type="CharacterBody3D" unique_id=166496182 groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_smqvi")
-left_hand_marker = NodePath("Head/Camera3D/MarkerLeftHand")
-right_hand_marker = NodePath("Head/Camera3D/MarkerRightHand")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=866735914]
 mesh = SubResource("CapsuleMesh_bfdir")
@@ -49,6 +47,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LeftHand/LeftHandArea" unique_id=247175027]
 shape = SubResource("SphereShape3D_22vlk")
 
+[node name="left_hand_obj" type="Node3D" parent="Hands/LeftHand" unique_id=2068978382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, -0.5)
+
 [node name="RightHand" type="RigidBody3D" parent="Hands" unique_id=1705424413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, 0, -0.94)
 collision_layer = 4
@@ -65,6 +66,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.50515777)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/RightHand/RightHandArea" unique_id=1261585303]
 shape = SubResource("SphereShape3D_22vlk")
 
+[node name="right_hand_obj" type="Node3D" parent="Hands/RightHand" unique_id=386646770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15008765, 0, -0.50000006)
+
+[node name="two_handed_obj_pos" type="Node3D" parent="Hands/RightHand" unique_id=339519976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0, -0.50000006)
+
 [node name="Head" type="Node3D" parent="." unique_id=642812763]
 physics_interpolation_mode = 2
 
@@ -77,48 +84,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, -0.409, -1)
 [node name="MarkerRightHand" type="Marker3D" parent="Head/Camera3D" unique_id=728042775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, -0.4, -1)
 
-[node name="ui" type="Control" parent="." unique_id=398982810]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-mouse_filter = 1
-
-[node name="bg_pan" type="Panel" parent="ui" unique_id=2037931075]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-
-[node name="Button" type="Button" parent="ui" unique_id=458827192]
-layout_mode = 0
-offset_right = 152.0
-offset_bottom = 32.0
-text = "Player"
-
-[node name="Button2" type="Button" parent="ui" unique_id=2033883199]
-layout_mode = 0
-offset_left = 152.0
-offset_right = 304.0
-offset_bottom = 32.0
-text = "augments/perks"
-
-[node name="Button3" type="Button" parent="ui" unique_id=682059168]
-layout_mode = 0
-offset_left = 304.0
-offset_right = 456.0
-offset_bottom = 32.0
-text = "tasks"
-
-[node name="Button4" type="Button" parent="ui" unique_id=605856207]
-layout_mode = 0
-offset_left = 456.0
-offset_right = 608.0
-offset_bottom = 32.0
-text = "money"
-
-[node name="Button5" type="Button" parent="ui" unique_id=1610001945]
-layout_mode = 0
-offset_left = 608.0
-offset_right = 760.0
-offset_bottom = 32.0
-text = "phone"
+[connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
+[connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
