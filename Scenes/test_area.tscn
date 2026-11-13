@@ -5,8 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_msx0k"]
-[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
+[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/UI/ingame_ui.tscn" id="4_15qo1"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="4_m0xqr"]
+[ext_resource type="PackedScene" uid="uid://dpkpegyo5mwqf" path="res://3D_Models/tail_camera_final.glb" id="8_msx0k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbjuv"]
 albedo_texture = ExtResource("4_m0xqr")
@@ -32,8 +33,9 @@ _surfaces = [{
 points = PackedVector3Array(10.5, 0.5, 11, 10.5, -0.5, 11, -11.5, 0.5, 11, -11.5, -0.5, 11, 10.5, 0.5, -11.5, 10.5, -0.5, -11.5, -11.5, 0.5, -11.5, -11.5, -0.5, -11.5)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3n873"]
-sky_top_color = Color(0, 0, 0.13333334, 1)
+sky_top_color = Color(0.9521863, 0.68116784, 0.6403041, 1)
 sky_horizon_color = Color(0.20539668, 0.21019396, 0.21979877, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_gv3r5"]
 sky_material = SubResource("ProceduralSkyMaterial_3n873")
@@ -82,6 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.475995, 1.8, -5.5053387)
 [node name="SpotLight3D" type="SpotLight3D" parent="Environment" unique_id=908890511]
 transform = Transform3D(-1, 0, 8.742278e-08, 8.742278e-08, 0, 1, 0, 1, 0, 0, 5.9327717, -1.1159191)
 light_color = Color(0.98826236, 0, 0.28320342, 1)
+light_energy = 16.0
 shadow_enabled = true
 spot_range = 8.675457
 
@@ -89,8 +92,16 @@ spot_range = 8.675457
 environment = SubResource("Environment_yih1u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=801795581]
-transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
+transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 8.889866, 0)
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
+[node name="SpotLight3D2" type="SpotLight3D" parent="Environment" unique_id=574887571]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.4717, 5)
+light_color = Color(1, 1, 0, 1)
+spot_range = 10.0
+
 [node name="InGameUI" parent="." unique_id=1286986647 instance=ExtResource("4_15qo1")]
+
+[node name="tail_camera_final" parent="." unique_id=2017889602 instance=ExtResource("8_msx0k")]
+transform = Transform3D(-0.86602527, 0, -0.50000024, 0, 1, 0, 0.50000024, 0, -0.86602527, -2.1370811, 1.5, 6.707767)
