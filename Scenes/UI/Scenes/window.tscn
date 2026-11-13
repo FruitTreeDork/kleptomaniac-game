@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://ba5njqr8l33yr"]
+
+[ext_resource type="Script" uid="uid://cf6webt4218rn" path="res://Scenes/UI/Scripts/Windows/window.gd" id="1_el3b0"]
+[ext_resource type="PackedScene" uid="uid://baae0iqkwey0h" path="res://Scenes/UI/Scenes/tasks.tscn" id="2_lsuwl"]
+[ext_resource type="FontFile" uid="uid://2gciqbrdunua" path="res://UI_Assets/Fonts/TAHOMABD.TTF" id="2_sd3g6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jihej"]
+bg_color = Color(0.20368087, 0.20368093, 0.20368081, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+bg_color = Color(0.83137256, 0.8156863, 0.78431374, 1)
+
+[sub_resource type="Gradient" id="Gradient_jihej"]
+colors = PackedColorArray(0.105882354, 0.1764706, 0.34117648, 1, 0.6862745, 0.7882353, 0.87058824, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1gdlv"]
+gradient = SubResource("Gradient_jihej")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qruvw"]
+texture = SubResource("GradientTexture2D_1gdlv")
+
+[node name="Window" type="Control" unique_id=954267590 node_paths=PackedStringArray("window_container", "window_bar", "window_slot", "window_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_el3b0")
+window_title = "Test"
+content_scene = ExtResource("2_lsuwl")
+window_container = NodePath("WindowContainer")
+window_bar = NodePath("WindowContainer/VBoxContainer/PanelContainer/MarginContainer/WindowBar")
+window_slot = NodePath("WindowContainer/VBoxContainer/WindowSlot")
+window_label = NodePath("WindowContainer/VBoxContainer/PanelContainer/MarginContainer/WindowBar/MarginContainer/WindowLabel")
+
+[node name="WindowContainer" type="PanelContainer" parent="." unique_id=890483305]
+layout_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_jihej")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WindowContainer" unique_id=1406098106]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="WindowContainer/VBoxContainer" unique_id=1713577393]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yf5fn")
+
+[node name="MarginContainer" type="MarginContainer" parent="WindowContainer/VBoxContainer/PanelContainer" unique_id=498457411]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="WindowBar" type="Panel" parent="WindowContainer/VBoxContainer/PanelContainer/MarginContainer" unique_id=1089583672]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qruvw")
+
+[node name="MarginContainer" type="MarginContainer" parent="WindowContainer/VBoxContainer/PanelContainer/MarginContainer/WindowBar" unique_id=1817918173]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="WindowLabel" type="RichTextLabel" parent="WindowContainer/VBoxContainer/PanelContainer/MarginContainer/WindowBar/MarginContainer" unique_id=1572062273]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_sd3g6")
+theme_override_fonts/bold_font = ExtResource("2_sd3g6")
+fit_content = true
+
+[node name="WindowSlot" type="Control" parent="WindowContainer/VBoxContainer" unique_id=497494691]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="gui_input" from="WindowContainer/VBoxContainer/PanelContainer/MarginContainer/WindowBar" to="." method="_on_window_bar_gui_input"]

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://baae0iqkwey0h"]
+
+[ext_resource type="Script" uid="uid://du2hoce8ja3iq" path="res://Scenes/UI/Scripts/Windows/task_window.gd" id="1_o05v1"]
+[ext_resource type="FontFile" uid="uid://bsl1nhyexwrlh" path="res://UI_Assets/Fonts/CONSOLA.TTF" id="2_cxjh1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o05v1"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Tasks" type="Control" unique_id=964831542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o05v1")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1526915501]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer" unique_id=1993275079]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o05v1")
+
+[node name="Label" type="RichTextLabel" parent="PanelContainer/Panel" unique_id=333181742]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_cxjh1")
+theme_override_font_sizes/normal_font_size = 24
+text = "- [ ] TASKS
+- [ ] STUFF TO DO
+- [ ] UHHH KILL EVERYONE"
