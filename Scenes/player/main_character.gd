@@ -16,6 +16,9 @@ var left_hand_extend : bool = false
 var right_hand_extend : bool = false
 var left_hand_throwing : bool = false
 var right_hand_throwing : bool = false
+var left_hand_interact : bool = false
+var right_hand_interact : bool = false
+var left_hand_throw_start : bool = false
 
 var left_hand_item : object
 var right_hand_item : object
@@ -39,7 +42,7 @@ var right_hand_item : object
 @onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
 @onready var two_handed_obj_pos: Node3D = $Hands/RightHand/two_handed_obj_pos
 
-@export var ingame_ui: CanvasLayer
+@export var ingame_ui: Control
 
 
 func _ready() -> void:
@@ -143,14 +146,11 @@ func HandleObjectCollision():
 func HandleInput():
 	HandleWASDInput()
 	HandleJump()
+	HandleThrow()
 	HandleItemDrop(left_hand_obj, left_hand_item, "drop_item_left")
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
-	
-	if Input.is_action_pressed("left_click") and left_hand_item:
-		left_hand_throwing = true
-		print("THROWING")
 
 
 # Obtains the WASD Input Direction and Velocity for Player
@@ -205,3 +205,26 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 		two_handed_obj_pos.get_child(0).reparent(self.get_parent())
 		right_hand_item = null
 		left_hand_item = null
+
+
+func HandleThrow():
+	if Input.is_action_pressed("left_click") and left_hand_item:
+		if !left_hand_throw_start:
+			$LeftHandThrowTimer.start()
+			left_hand_throw_start = true
+		if $LeftHandThrowTimer.time_left > 2.5 and $LeftHandThrowTimer.time_left < 3:
+			left_hand_interact = true
+			left_hand_throwing = false
+		else:
+			left_hand_throwing = true
+			left_hand_interact = false
+	
+	if Input.is_action_just_released("left_click") and left_hand_item:
+		left_hand_throw_start = false
+		$LeftHandThrowTimer.stop()
+		
+		if left_hand_throwing:
+			left_hand_item.HandleThrow()
+			HandleItemDrop(left_hand_obj, left_hand_item, "drop_item_left")
+		elif left_hand_interact:
+			left_hand_item.HandleInteract()

@@ -77,12 +77,17 @@ physics_interpolation_mode = 2
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1717118352]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+fov = 90.0
 
 [node name="MarkerLeftHand" type="Marker3D" parent="Head/Camera3D" unique_id=974195638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, -0.409, -1)
 
 [node name="MarkerRightHand" type="Marker3D" parent="Head/Camera3D" unique_id=728042775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, -0.4, -1)
+
+[node name="LeftHandThrowTimer" type="Timer" parent="." unique_id=508491477]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]

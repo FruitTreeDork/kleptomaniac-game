@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_msx0k"]
-[ext_resource type="PackedScene" uid="uid://ccalb3x0udmeq" path="res://Scenes/ui/ingame_ui.tscn" id="4_15qo1"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="4_m0xqr"]
+[ext_resource type="PackedScene" uid="uid://dqw2hb8v7506o" path="res://Scenes/ui/Scenes/in_game_ui.tscn" id="7_kbjuv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbjuv"]
 albedo_texture = ExtResource("4_m0xqr")
@@ -46,7 +46,7 @@ sky = SubResource("Sky_gv3r5")
 
 [node name="drizzle" parent="." unique_id=166496182 node_paths=PackedStringArray("ingame_ui") instance=ExtResource("1_gv3r5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-ingame_ui = NodePath("../InGameUI")
+ingame_ui = NodePath("../InGameUi")
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1423132196]
 script = ExtResource("2_kbjuv")
@@ -90,7 +90,6 @@ environment = SubResource("Environment_yih1u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=801795581]
 transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037742916, 0, 4.889866, 0)
-light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
-[node name="InGameUI" parent="." unique_id=1286986647 instance=ExtResource("4_15qo1")]
+[node name="InGameUi" parent="." unique_id=1488047598 instance=ExtResource("7_kbjuv")]
