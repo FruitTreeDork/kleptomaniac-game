@@ -1,16 +1,6 @@
 [gd_scene format=4 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
-[ext_resource type="PackedScene" uid="uid://dqw2hb8v7506o" path="res://Scenes/UI/Scenes/in_game_ui.tscn" id="2_kpu7f"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_yih1u"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_3n873"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_yih1u"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kpu7f"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_kbjuv"]
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
@@ -103,5 +93,4 @@ transform = Transform3D(1, 0, 0, 0, 0.037742916, 0.9992875, 0, -0.9992875, 0.037
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
-[node name="InGameUi" parent="." unique_id=1488047598 instance=ExtResource("2_kpu7f")]
 [node name="InGameUI" parent="." unique_id=1286986647 instance=ExtResource("4_15qo1")]
