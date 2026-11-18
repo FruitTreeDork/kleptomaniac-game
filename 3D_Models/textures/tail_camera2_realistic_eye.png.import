@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0l5erhqb5wkv"
-path="res://.godot/imported/tail_camera2_realistic_eye.png-032048f5698180cf86cca41f1ca8324f.ctex"
+path="res://.godot/imported/tail_camera2_realistic_eye.png-89c15c616fee01b8fd06848a031dcc51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://3D_Models/tail_camera2_realistic_eye.png"
-dest_files=["res://.godot/imported/tail_camera2_realistic_eye.png-032048f5698180cf86cca41f1ca8324f.ctex"]
+source_file="res://3D_Models/textures/tail_camera2_realistic_eye.png"
+dest_files=["res://.godot/imported/tail_camera2_realistic_eye.png-89c15c616fee01b8fd06848a031dcc51.ctex"]
 
 [params]
 
