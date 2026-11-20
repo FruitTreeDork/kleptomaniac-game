@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bjap2q4jbf4a7"]
 
 [ext_resource type="PackedScene" uid="uid://jq8xhdqvk02b" path="res://Scenes/player/main_character.tscn" id="1_gv3r5"]
+[ext_resource type="PackedScene" uid="uid://b2i3p82t7fhha" path="res://Scenes/bad_door.tscn" id="1_sm5jj"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_kbjuv"]
 [ext_resource type="PackedScene" uid="uid://8foyldyj3lgb" path="res://Scenes/objects/bottle.tscn" id="2_kpu7f"]
 [ext_resource type="PackedScene" uid="uid://bf8jnfrx0g5tp" path="res://Scenes/objects/toxic_barrel.tscn" id="3_3n873"]
@@ -168,6 +169,9 @@ background_mode = 2
 sky = SubResource("Sky_gv3r5")
 
 [node name="test_area" type="Node3D" unique_id=190970809]
+
+[node name="bad_door" parent="." unique_id=936169743 instance=ExtResource("1_sm5jj")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0.5, 13.4)
 
 [node name="drizzle" parent="." unique_id=166496182 node_paths=PackedStringArray("ingame_ui") instance=ExtResource("1_gv3r5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
