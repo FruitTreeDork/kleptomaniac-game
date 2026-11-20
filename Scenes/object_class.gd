@@ -6,8 +6,9 @@ class_name object
 
 var f : bool = false
 
-func HandleThrow():
-	self.linear_velocity = Vector3(0.0, 5, 10)
+func Throw(camera: Camera3D, speed : float):
+	var direction = -camera.global_basis.z.normalized()
+	self.linear_velocity = direction * speed
 
-func HandleInteract():
+func Interact():
 	pass
