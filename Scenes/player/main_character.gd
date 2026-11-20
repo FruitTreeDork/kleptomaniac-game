@@ -4,12 +4,16 @@ class_name player
 
 
 const HAND_STRENGTH: float = 25.0
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
-const SENSITIVITY = 0.003
-const PUSH_FORCE = 2.0
+const SPEED : float = 5.0
+const JUMP_VELOCITY : float = 4.5
+const SENSITIVITY : float = 0.003
+const PUSH_FORCE : float = 2.0
+const MIN_THROW_SPEED = 1.5
+const MAX_THROW_SPEED = 15.0
 
 const ARM_BACK : float = 200
+
+var throw_speed : float = 0.0
 
 var in_settings : bool = false
 var left_hand_extend : bool = false
@@ -23,26 +27,29 @@ var left_hand_throw_start : bool = false
 var left_hand_item : object
 var right_hand_item : object
 
-@onready var head: Node3D = $Head
-@onready var camera: Camera3D = $Head/Camera3D
+@onready var head : Node3D = $Head
+@onready var camera : Camera3D = $Head/Camera3D
 
-@onready var left_hand: Node3D = $Hands/LeftHand
-@onready var right_hand: Node3D = $Hands/RightHand
+@onready var left_hand : Node3D = $Hands/LeftHand
+@onready var right_hand : Node3D = $Hands/RightHand
 
-@onready var left_hand_marker: Marker3D = $Head/Camera3D/MarkerLeftHand
-@onready var right_hand_marker: Marker3D = $Head/Camera3D/MarkerRightHand
+@onready var left_hand_marker : Marker3D = $Head/Camera3D/MarkerLeftHand
+@onready var right_hand_marker : Marker3D = $Head/Camera3D/MarkerRightHand
 
-@onready var left_hand_area: Area3D = $Hands/LeftHand/LeftHandArea
-@onready var right_hand_area: Area3D = $Hands/RightHand/RightHandArea
+@onready var left_hand_area : Area3D = $Hands/LeftHand/LeftHandArea
+@onready var right_hand_area : Area3D = $Hands/RightHand/RightHandArea
 
-@onready var left_hand_coll: CollisionShape3D = $Hands/LeftHand/CollisionShape3D
-@onready var right_hand_coll: CollisionShape3D = $Hands/RightHand/CollisionShape3D
+@onready var left_hand_coll : CollisionShape3D = $Hands/LeftHand/CollisionShape3D
+@onready var right_hand_coll : CollisionShape3D = $Hands/RightHand/CollisionShape3D
 
-@onready var right_hand_obj: Node3D = $Hands/RightHand/right_hand_obj
-@onready var left_hand_obj: Node3D = $Hands/LeftHand/left_hand_obj
-@onready var two_handed_obj_pos: Node3D = $Hands/RightHand/two_handed_obj_pos
+@onready var right_hand_obj : Node3D = $Hands/RightHand/right_hand_obj
+@onready var left_hand_obj : Node3D = $Hands/LeftHand/left_hand_obj
+@onready var two_handed_obj_pos : Node3D = $Hands/RightHand/two_handed_obj_pos
 
-@export var ingame_ui: Control
+@onready var left_hand_throw_timer : Timer = $LeftHandThrowTimer
+@onready var right_hand_throw_timer : Timer = $RightHandThrowTimer
+
+@export var ingame_ui : Control
 
 
 func _ready() -> void:
@@ -116,6 +123,7 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	print($LeftHandThrowTimer.time_left)
 	# Adds the Gravity for Player
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -192,13 +200,7 @@ func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input:
 # Handles Dropping the Item by Reparenting From the Hand to the World
 func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 	if hand_item and Input.is_action_just_pressed(input) and !hand_item.obj_data.two_handed:
-		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-		hand_obj.get_child(0).obj_data.in_hand = false
-		hand_obj.get_child(0).reparent(self.get_parent())
-		if hand_obj == left_hand_obj:
-			left_hand_item = null
-		else:
-			right_hand_item = null
+		RemoveItem(hand_obj)
 	elif hand_item and Input.is_action_just_pressed(input) and hand_item.obj_data.two_handed:
 		two_handed_obj_pos.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
 		two_handed_obj_pos.get_child(0).obj_data.in_hand = false
@@ -207,12 +209,23 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 		left_hand_item = null
 
 
+func RemoveItem(hand_obj):
+	hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+	hand_obj.get_child(0).obj_data.in_hand = false
+	hand_obj.get_child(0).reparent(self.get_parent())
+	if hand_obj == left_hand_obj:
+		left_hand_item = null
+	else:
+		right_hand_item = null
+
+
+# Handles throwing the item in the players hand
 func HandleThrow():
 	if Input.is_action_pressed("left_click") and left_hand_item:
 		if !left_hand_throw_start:
-			$LeftHandThrowTimer.start()
+			left_hand_throw_timer.start()
 			left_hand_throw_start = true
-		if $LeftHandThrowTimer.time_left > 2.5 and $LeftHandThrowTimer.time_left < 3:
+		if left_hand_throw_timer.time_left > 2.5 and left_hand_throw_timer.time_left < 3:
 			left_hand_interact = true
 			left_hand_throwing = false
 		else:
@@ -221,10 +234,11 @@ func HandleThrow():
 	
 	if Input.is_action_just_released("left_click") and left_hand_item:
 		left_hand_throw_start = false
-		$LeftHandThrowTimer.stop()
+		throw_speed = (left_hand_throw_timer.wait_time - left_hand_throw_timer.time_left) * 5
+		left_hand_throw_timer.stop()
 		
 		if left_hand_throwing:
-			left_hand_item.HandleThrow()
-			HandleItemDrop(left_hand_obj, left_hand_item, "drop_item_left")
+			left_hand_item.Throw(camera, throw_speed)
+			RemoveItem(left_hand_obj)
 		elif left_hand_interact:
-			left_hand_item.HandleInteract()
+			left_hand_item.Interact()
