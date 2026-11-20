@@ -8,21 +8,24 @@ const SPEED : float = 5.0
 const JUMP_VELOCITY : float = 4.5
 const SENSITIVITY : float = 0.003
 const PUSH_FORCE : float = 2.0
-const MIN_THROW_SPEED = 1.5
-const MAX_THROW_SPEED = 15.0
+const MIN_THROW_VELOCITY = 1.5
+const MAX_THROW_VELOCITY = 15.0
 
 const ARM_BACK : float = 200
 
-var throw_speed : float = 0.0
-
 var in_settings : bool = false
+
 var left_hand_extend : bool = false
 var right_hand_extend : bool = false
+
 var left_hand_throwing : bool = false
 var right_hand_throwing : bool = false
-var left_hand_interact : bool = false
-var right_hand_interact : bool = false
+
+var left_hand_interacting : bool = false
+var right_hand_interacting : bool = false
+
 var left_hand_throw_start : bool = false
+var right_hand_throw_start : bool = false
 
 var left_hand_item : object
 var right_hand_item : object
@@ -46,10 +49,10 @@ var right_hand_item : object
 @onready var left_hand_obj : Node3D = $Hands/LeftHand/left_hand_obj
 @onready var two_handed_obj_pos : Node3D = $Hands/RightHand/two_handed_obj_pos
 
-@onready var left_hand_throw_timer : Timer = $LeftHandThrowTimer
-@onready var right_hand_throw_timer : Timer = $RightHandThrowTimer
+@onready var left_hand_throw_timer : Timer = $Hands/LeftHandThrowTimer
+@onready var right_hand_throw_timer : Timer = $Hands/RightHandThrowTimer
 
-@export var ingame_ui : Control
+@export var ingame_ui: Control
 
 
 func _ready() -> void:
@@ -123,7 +126,6 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	print($LeftHandThrowTimer.time_left)
 	# Adds the Gravity for Player
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -159,6 +161,7 @@ func HandleInput():
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
+	print(left_hand_throw_timer.time_left)
 
 
 # Obtains the WASD Input Direction and Velocity for Player
@@ -199,9 +202,20 @@ func HandleHandExtend(hand: Node3D, hand_area: Area3D, hand_item: object, input:
 
 # Handles Dropping the Item by Reparenting From the Hand to the World
 func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
-	if hand_item and Input.is_action_just_pressed(input) and !hand_item.obj_data.two_handed:
-		RemoveItem(hand_obj)
-	elif hand_item and Input.is_action_just_pressed(input) and hand_item.obj_data.two_handed:
+	if Input.is_action_just_pressed(input):
+		RemoveItem(hand_obj, hand_item)
+
+
+func RemoveItem(hand_obj : Node3D, hand_item : object):
+	if !hand_item.obj_data.two_handed:
+		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+		hand_obj.get_child(0).obj_data.in_hand = false
+		hand_obj.get_child(0).reparent(self.get_parent())
+		if hand_obj == left_hand_obj:
+			left_hand_item = null
+		else:
+			right_hand_item = null
+	elif hand_item and hand_item.obj_data.two_handed:
 		two_handed_obj_pos.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
 		two_handed_obj_pos.get_child(0).obj_data.in_hand = false
 		two_handed_obj_pos.get_child(0).reparent(self.get_parent())
@@ -209,36 +223,29 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 		left_hand_item = null
 
 
-func RemoveItem(hand_obj):
-	hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-	hand_obj.get_child(0).obj_data.in_hand = false
-	hand_obj.get_child(0).reparent(self.get_parent())
-	if hand_obj == left_hand_obj:
-		left_hand_item = null
-	else:
-		right_hand_item = null
-
-
 # Handles throwing the item in the players hand
 func HandleThrow():
-	if Input.is_action_pressed("left_click") and left_hand_item:
-		if !left_hand_throw_start:
-			left_hand_throw_timer.start()
-			left_hand_throw_start = true
-		if left_hand_throw_timer.time_left > 2.5 and left_hand_throw_timer.time_left < 3:
-			left_hand_interact = true
-			left_hand_throwing = false
-		else:
-			left_hand_throwing = true
-			left_hand_interact = false
+	if Input.is_action_just_pressed("left_click") and left_hand_item:
+		left_hand_throw_start = true
+		left_hand_throw_timer.start()
+		left_hand_throwing = false
+		left_hand_interacting = true
 	
-	if Input.is_action_just_released("left_click") and left_hand_item:
-		left_hand_throw_start = false
-		throw_speed = (left_hand_throw_timer.wait_time - left_hand_throw_timer.time_left) * 5
-		left_hand_throw_timer.stop()
+	if left_hand_throw_start and Input.is_action_pressed("left_click") and left_hand_item:
+		if left_hand_throw_timer.time_left <= 2.5:
+			left_hand_throwing = true
+			left_hand_interacting = false
+	
+	if Input.is_action_just_released("left_click"):
+		if left_hand_throw_start and left_hand_item:
+			if left_hand_throwing:
+				var throw_velocity = (left_hand_throw_timer.wait_time - left_hand_throw_timer.time_left) * 5
+				left_hand_item.Throw(camera, throw_velocity)
+				RemoveItem(left_hand_obj, left_hand_item)
+			elif left_hand_interacting:
+				left_hand_item.Interact()
 		
-		if left_hand_throwing:
-			left_hand_item.Throw(camera, throw_speed)
-			RemoveItem(left_hand_obj)
-		elif left_hand_interact:
-			left_hand_item.Interact()
+		left_hand_throw_start = false
+		left_hand_throwing = false
+		left_hand_interacting = false
+		left_hand_throw_timer.stop()
