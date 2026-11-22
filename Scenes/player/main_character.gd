@@ -126,10 +126,10 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-<<<<<<< HEAD
+#<<<<<<< HEAD
 	#print($LeftHandThrowTimer.time_left)
-=======
->>>>>>> 02228daf794be56b06a5888fb8120b8a707cfd9b
+#=======
+#>>>>>>> 02228daf794be56b06a5888fb8120b8a707cfd9b
 	# Adds the Gravity for Player
 	if not is_on_floor():
 		velocity += get_gravity() * delta
