@@ -165,7 +165,7 @@ func HandleInput():
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
-	print(left_hand_throw_timer.time_left)
+	#print(left_hand_throw_timer.time_left)
 
 
 # Obtains the WASD Input Direction and Velocity for Player
