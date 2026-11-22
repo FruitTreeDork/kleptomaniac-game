@@ -211,20 +211,21 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 
 
 func RemoveItem(hand_obj : Node3D, hand_item : object):
-	if !hand_item.obj_data.two_handed:
-		hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-		hand_obj.get_child(0).obj_data.in_hand = false
-		hand_obj.get_child(0).reparent(self.get_parent())
-		if hand_obj == left_hand_obj:
-			left_hand_item = null
-		else:
+	if hand_item:
+		if !hand_item.obj_data.two_handed:
+			hand_obj.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+			hand_obj.get_child(0).obj_data.in_hand = false
+			hand_obj.get_child(0).reparent(self.get_parent())
+			if hand_obj == left_hand_obj:
+				left_hand_item = null
+			else:
+				right_hand_item = null
+		elif hand_item and hand_item.obj_data.two_handed:
+			two_handed_obj_pos.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+			two_handed_obj_pos.get_child(0).obj_data.in_hand = false
+			two_handed_obj_pos.get_child(0).reparent(self.get_parent())
 			right_hand_item = null
-	elif hand_item and hand_item.obj_data.two_handed:
-		two_handed_obj_pos.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
-		two_handed_obj_pos.get_child(0).obj_data.in_hand = false
-		two_handed_obj_pos.get_child(0).reparent(self.get_parent())
-		right_hand_item = null
-		left_hand_item = null
+			left_hand_item = null
 
 
 # Handles throwing the item in the players hand
