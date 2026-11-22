@@ -97,7 +97,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6ogw6")
 
 [node name="ToxicBarrel" type="RigidBody3D" unique_id=1681238014 groups=["objects"]]
-mass = 10.0
+mass = 15.0
+gravity_scale = 2.0
 script = ExtResource("1_6d2gk")
 obj_data = SubResource("Resource_15qo1")
 

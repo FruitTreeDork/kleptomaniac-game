@@ -72,6 +72,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15008765, 0, -0.50000006)
 [node name="two_handed_obj_pos" type="Node3D" parent="Hands/RightHand" unique_id=339519976]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0, -0.50000006)
 
+[node name="LeftHandThrowTimer" type="Timer" parent="Hands" unique_id=508491477]
+wait_time = 3.0
+one_shot = true
+
+[node name="RightHandThrowTimer" type="Timer" parent="Hands" unique_id=367829882]
+wait_time = 3.0
+one_shot = true
+
 [node name="Head" type="Node3D" parent="." unique_id=642812763]
 physics_interpolation_mode = 2
 
@@ -84,14 +92,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, -0.409, -1)
 
 [node name="MarkerRightHand" type="Marker3D" parent="Head/Camera3D" unique_id=728042775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, -0.4, -1)
-
-[node name="LeftHandThrowTimer" type="Timer" parent="." unique_id=508491477]
-wait_time = 3.0
-one_shot = true
-
-[node name="RightHandThrowTimer" type="Timer" parent="." unique_id=463783353]
-wait_time = 3.0
-one_shot = true
 
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]
