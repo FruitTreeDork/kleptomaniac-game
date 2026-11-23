@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="4_m0xqr"]
 [ext_resource type="PackedScene" uid="uid://dqw2hb8v7506o" path="res://Scenes/UI/Scenes/in_game_ui.tscn" id="7_kbjuv"]
 [ext_resource type="PackedScene" uid="uid://biiwit8qifeob" path="res://3D_Models/person.glb" id="8_msx0k"]
-[ext_resource type="PackedScene" uid="uid://c2bfqw68ikakn" path="res://Scenes/Enemies/person.tscn" id="9_m0xqr"]
+[ext_resource type="PackedScene" uid="uid://dj4mb2ag0n2lk" path="res://Scenes/Enemies/enemy_test.tscn" id="10_sm5jj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0xqr"]
 albedo_texture = ExtResource("4_m0xqr")
@@ -349,9 +349,9 @@ shadow_enabled = true
 [node name="person" parent="." unique_id=2002073090 instance=ExtResource("8_msx0k")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 5, 7)
 
-[node name="person2" parent="." unique_id=1397732346 instance=ExtResource("9_m0xqr")]
-transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, -6, 2.3, 5)
-
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1163732136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, 17.9)
 light_energy = 25.0
+
+[node name="enemy" parent="." unique_id=275048603 instance=ExtResource("10_sm5jj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2000003, 2.5000005, 5.8999996)

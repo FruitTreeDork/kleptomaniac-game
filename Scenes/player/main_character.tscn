@@ -93,5 +93,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, -0.409, -1)
 [node name="MarkerRightHand" type="Marker3D" parent="Head/Camera3D" unique_id=728042775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54, -0.4, -1)
 
+[node name="left_hand_charge" type="ProgressBar" parent="." unique_id=1727795682]
+offset_left = 64.0
+offset_top = 600.0
+offset_right = 224.0
+offset_bottom = 627.0
+max_value = 3.0
+
+[node name="right_hand_charge" type="ProgressBar" parent="." unique_id=628763471]
+offset_left = 1056.0
+offset_top = 600.0
+offset_right = 1216.0
+offset_bottom = 627.0
+max_value = 3.0
+
 [connection signal="body_entered" from="Hands/LeftHand/LeftHandArea" to="." method="_on_left_hand_area_body_entered"]
 [connection signal="body_entered" from="Hands/RightHand/RightHandArea" to="." method="_on_right_hand_area_body_entered"]

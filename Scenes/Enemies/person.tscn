@@ -227,7 +227,7 @@ radius = 8.0
 script = ExtResource("1_0x856")
 
 [node name="person_animated_loop" type="Node3D" parent="." unique_id=1973517309]
-transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Armature" type="Node3D" parent="person_animated_loop" unique_id=88757899]
 
@@ -346,11 +346,12 @@ skeleton = NodePath("..")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="person_animated_loop" unique_id=726254443]
 libraries/ = SubResource("AnimationLibrary_5yy3y")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1068790336]
-transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1003816117]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_0x856")
 
 [node name="detection area" type="Area3D" parent="." unique_id=769989414]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="detection area" unique_id=1344018270]
 shape = SubResource("SphereShape3D_yih1u")

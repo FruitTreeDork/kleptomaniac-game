@@ -52,6 +52,8 @@ var right_hand_item : object
 @onready var left_hand_throw_timer : Timer = $Hands/LeftHandThrowTimer
 @onready var right_hand_throw_timer : Timer = $Hands/RightHandThrowTimer
 
+@onready var left_hand_charge: ProgressBar = $left_hand_charge
+
 @export var ingame_ui: Control
 
 
@@ -165,6 +167,8 @@ func HandleInput():
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
+	
+	left_hand_charge.value = left_hand_throw_timer.time_left
 	#print(left_hand_throw_timer.time_left)
 
 
