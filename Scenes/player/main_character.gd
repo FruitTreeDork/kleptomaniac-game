@@ -15,17 +15,16 @@ const ARM_BACK : float = 200
 
 var in_settings : bool = false
 
-var left_hand_extend : bool = false
-var right_hand_extend : bool = false
-
-var left_hand_throwing : bool = false
-var right_hand_throwing : bool = false
-
-var left_hand_interacting : bool = false
-var right_hand_interacting : bool = false
-
-var left_hand_throw_start : bool = false
-var right_hand_throw_start : bool = false
+var left_state : Dictionary = {
+	"throw_start": false,
+	"throwing": false,
+	"interacting": false
+}
+var right_state : Dictionary = {
+	"throw_start": false,
+	"throwing": false,
+	"interacting": false
+}
 
 var left_hand_item : object
 var right_hand_item : object
@@ -52,7 +51,8 @@ var right_hand_item : object
 @onready var left_hand_throw_timer : Timer = $Hands/LeftHandThrowTimer
 @onready var right_hand_throw_timer : Timer = $Hands/RightHandThrowTimer
 
-@onready var left_hand_charge: ProgressBar = $left_hand_charge
+@onready var left_hand_charge : ProgressBar = $left_hand_charge
+@onready var right_hand_charge : ProgressBar = $right_hand_charge
 
 @export var ingame_ui: Control
 
@@ -128,10 +128,6 @@ func _on_left_hand_area_body_entered(body: Node3D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-#<<<<<<< HEAD
-	#print($LeftHandThrowTimer.time_left)
-#=======
-#>>>>>>> 02228daf794be56b06a5888fb8120b8a707cfd9b
 	# Adds the Gravity for Player
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -162,14 +158,15 @@ func HandleObjectCollision():
 func HandleInput():
 	HandleWASDInput()
 	HandleJump()
-	HandleThrow()
+	HandleThrow(left_hand_item, left_hand_obj, left_hand_throw_timer, left_state, "left_click")
+	HandleThrow(right_hand_item, right_hand_obj, right_hand_throw_timer, right_state, "right_click")
 	HandleItemDrop(left_hand_obj, left_hand_item, "drop_item_left")
 	HandleItemDrop(right_hand_obj, right_hand_item, "drop_item_right")
 	HandleHandExtend(left_hand, left_hand_area, left_hand_item, "left_click")
 	HandleHandExtend(right_hand, right_hand_area, right_hand_item, "right_click")
 	
-	left_hand_charge.value = left_hand_throw_timer.time_left
-	#print(left_hand_throw_timer.time_left)
+	left_hand_charge.value = left_hand_throw_timer.wait_time - left_hand_throw_timer.time_left
+	right_hand_charge.value = right_hand_throw_timer.wait_time - right_hand_throw_timer.time_left
 
 
 # Obtains the WASD Input Direction and Velocity for Player
@@ -214,6 +211,7 @@ func HandleItemDrop(hand_obj: Node3D, hand_item: object, input: String):
 		RemoveItem(hand_obj, hand_item)
 
 
+# Handles removing the item from the players hand and giving it back physics
 func RemoveItem(hand_obj : Node3D, hand_item : object):
 	if hand_item:
 		if !hand_item.obj_data.two_handed:
@@ -233,28 +231,28 @@ func RemoveItem(hand_obj : Node3D, hand_item : object):
 
 
 # Handles throwing the item in the players hand
-func HandleThrow():
-	if Input.is_action_just_pressed("left_click") and left_hand_item:
-		left_hand_throw_start = true
-		left_hand_throw_timer.start()
-		left_hand_throwing = false
-		left_hand_interacting = true
+func HandleThrow(hand_item, hand_obj, hand_throw_timer : Timer, state : Dictionary, input : String):
+	if Input.is_action_just_pressed(input) and hand_item:
+		state.throw_start = true
+		hand_throw_timer.start()
+		state.throwing = false
+		state.interacting = true
 	
-	if left_hand_throw_start and Input.is_action_pressed("left_click") and left_hand_item:
-		if left_hand_throw_timer.time_left <= 2.5:
-			left_hand_throwing = true
-			left_hand_interacting = false
+	if state.throw_start and Input.is_action_pressed(input) and hand_item:
+		if hand_throw_timer.time_left <= 0.9:
+			state.throwing = true
+			state.interacting = false
 	
-	if Input.is_action_just_released("left_click"):
-		if left_hand_throw_start and left_hand_item:
-			if left_hand_throwing:
-				var throw_velocity = (left_hand_throw_timer.wait_time - left_hand_throw_timer.time_left) * 5
-				left_hand_item.Throw(camera, throw_velocity)
-				RemoveItem(left_hand_obj, left_hand_item)
-			elif left_hand_interacting:
-				left_hand_item.Interact()
+	if Input.is_action_just_released(input):
+		if state.throw_start and hand_item:
+			if state.throwing:
+				var throw_velocity = (hand_throw_timer.wait_time - hand_throw_timer.time_left) * 20
+				hand_item.Throw(camera, throw_velocity)
+				RemoveItem(hand_obj, hand_item)
+			elif state.interacting:
+				hand_item.Interact()
 		
-		left_hand_throw_start = false
-		left_hand_throwing = false
-		left_hand_interacting = false
-		left_hand_throw_timer.stop()
+		state.throw_start = false
+		state.throwing = false
+		state.interacting = false
+		hand_throw_timer.stop()
